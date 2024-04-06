@@ -1,8 +1,6 @@
 {
   stdenv,
   fetchFromGitHub,
-  gnumake,
-  gcc,
   lib,
 }:
 stdenv.mkDerivation {
@@ -16,14 +14,13 @@ stdenv.mkDerivation {
     hash = "sha256-PZMMfkwJC6fmI/2ZDV0nT6HVNHjw6CrraMHqPe0l7EY=";
   };
 
-  nativeBuildInputs = [gnumake gcc];
-
-  buildPhase = ''
-    make
-  '';
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     install -Dm755 bencode_pretty bencode_prettier bencode_prettiest bencode_unpretty $out/bin
+
+    runHook postInstall
   '';
 
   meta = {
