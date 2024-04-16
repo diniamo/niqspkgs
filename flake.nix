@@ -26,10 +26,10 @@
         legacyPackages = {
           bencode-pretty = mkPackage ./pkgs/bencode-pretty.nix;
 
-mpvScripts = {
-          SimpleUndo = mkMpvPackage ./pkgs/mpvScripts/simple-undo.nix.nix;
-          skiptosilence = mkMpvPackage ./pkgs/mpvScripts/skip-to-silence.nix;
-        };
+          mpvScripts = {
+            SimpleUndo = mkMpvPackage ./pkgs/mpvScripts/simple-undo.nix.nix;
+            skiptosilence = mkMpvPackage ./pkgs/mpvScripts/skip-to-silence.nix;
+          };
         };
       };
     };
