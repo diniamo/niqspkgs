@@ -19,15 +19,17 @@
         ...
       }: let
         mkPackage = path: pkgs.callPackage path {};
-        mkMpvScript = path: pkgs.mpvScripts.callPackage path {};
+        mkMpvPackage = path: pkgs.mpvScripts.callPackage path {};
       in {
         formatter = pkgs.alejandra;
 
-        packages = {
+        legacyPackages = {
           bencode-pretty = mkPackage ./pkgs/bencode-pretty.nix;
 
-          SimpleUndo = mkMpvScript ./pkgs/mpvScripts/SimpleUndo.nix;
-          skiptosilence = mkMpvScript ./pkgs/mpvScripts/skiptosilence.nix;
+mpvScripts = {
+          SimpleUndo = mkMpvPackage ./pkgs/mpvScripts/SimpleUndo.nix;
+          skiptosilence = mkMpvPackage ./pkgs/mpvScripts/skiptosilence.nix;
+        };
         };
       };
     };
