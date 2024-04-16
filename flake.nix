@@ -27,8 +27,8 @@
           bencode-pretty = mkPackage ./pkgs/bencode-pretty.nix;
 
 mpvScripts = {
-          SimpleUndo = mkMpvPackage ./pkgs/mpvScripts/SimpleUndo.nix;
-          skiptosilence = mkMpvPackage ./pkgs/mpvScripts/skiptosilence.nix;
+          SimpleUndo = mkMpvPackage ./pkgs/mpvScripts/simple-undo.nix.nix;
+          skiptosilence = mkMpvPackage ./pkgs/mpvScripts/skip-to-silence.nix;
         };
         };
       };
