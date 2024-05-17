@@ -13,8 +13,6 @@ buildLua rec {
     rev = version;
     hash = "sha256-tChANE37jKX2IMF3TC1QIBeDqZeCJ7Cf7LxKFXeS2dg=";
   };
-  # TODO: figure out what this does
-  # passthru.updateScript = gitUpdate/unstableGitUpdater {};
 
   scriptPath = "scripts/${pname}.lua";
 
