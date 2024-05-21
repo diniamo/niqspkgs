@@ -2,10 +2,10 @@
   mkPackage = path: pkgs.callPackage path {};
   mkMpvPackage = path: pkgs.mpvScripts.callPackage path {};
 in {
-  bencode-pretty = mkPackage ./derivations/bencode-pretty.nix;
+  bencode-pretty = mkPackage ./bencode-pretty.nix;
 
   mpvScripts = {
-    SimpleUndo = mkMpvPackage ./derivations/mpvScripts/SimpleUndo.nix;
-    skiptosilence = mkMpvPackage ./derivations/mpvScripts/skiptosilence.nix;
+    SimpleUndo = mkMpvPackage ./mpvScripts/SimpleUndo.nix;
+    skiptosilence = mkMpvPackage ./mpvScripts/skiptosilence.nix;
   };
 }
