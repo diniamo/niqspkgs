@@ -13,20 +13,9 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
 
-      perSystem = {pkgs, ...}: let
-        mkPackage = path: pkgs.callPackage path {};
-        mkMpvPackage = path: pkgs.mpvScripts.callPackage path {};
-      in {
+      perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
-
-        legacyPackages = {
-          bencode-pretty = mkPackage ./pkgs/bencode-pretty.nix;
-
-          mpvScripts = {
-            SimpleUndo = mkMpvPackage ./pkgs/mpvScripts/simple-undo.nix;
-            skiptosilence = mkMpvPackage ./pkgs/mpvScripts/skip-to-silence.nix;
-          };
-        };
+        legacyPackages = import ./pkgs {inherit pkgs;};
       };
     };
 }
