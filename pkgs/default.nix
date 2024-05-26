@@ -5,6 +5,8 @@ in {
   bencode-pretty = mkPackage ./bencode-pretty.nix;
   starship-nix3-shell = mkPackage ./starship-nix3-shell.nix;
 
+  # Relies on callPackage currently
+  nodePackages = mkPackage ./nodePackages;
   mpvScripts = {
     simple-undo = mkMpvPackage ./mpvScripts/simple-undo.nix;
     skip-to-silence = mkMpvPackage ./mpvScripts/skip-to-silence.nix;
