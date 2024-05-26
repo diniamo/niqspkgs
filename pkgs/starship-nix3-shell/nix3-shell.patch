@@ -1,0 +1,15 @@
+diff --git a/src/modules/nix_shell.rs b/src/modules/nix_shell.rs
+index 4d5cc9a1..2ad8f3db 100644
+--- a/src/modules/nix_shell.rs
++++ b/src/modules/nix_shell.rs
+@@ -15,6 +15,10 @@ impl NixShellType {
+     fn detect_shell_type(use_heuristic: bool, context: &Context) -> Option<Self> {
+         use NixShellType::{Impure, Pure, Unknown};
+ 
++        if context.get_env("IN_NIX3_SHELL").as_deref() == Some("1") {
++            return Some(Unknown);
++        }
++
+         let shell_type = context.get_env("IN_NIX_SHELL");
+         match shell_type.as_deref() {
+             Some("pure") => return Some(Pure),
