@@ -6,7 +6,7 @@ in {
   starship-nix3-shell = mkPackage ./starship-nix3-shell;
 
   mpvScripts = {
-    SimpleUndo = mkMpvPackage ./mpvScripts/SimpleUndo.nix;
-    skiptosilence = mkMpvPackage ./mpvScripts/skiptosilence.nix;
+    simple-undo = mkMpvPackage ./mpvScripts/simple-undo.nix;
+    skip-to-silence = mkMpvPackage ./mpvScripts/skip-to-silence.nix;
   };
 }
