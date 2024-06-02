@@ -26,6 +26,6 @@ stdenv.mkDerivation {
   meta = {
     description = "Programs to create a \"pretty\" version of a bencoded file that can be easily examined and edited, and another to \"unpretty\" it again.";
     homepage = "https://github.com/tool-maker/bencode-pretty";
-    maintainers = with lib.maintainers; [diniamo];
+    maintainers = [lib.maintainers.diniamo];
   };
 }

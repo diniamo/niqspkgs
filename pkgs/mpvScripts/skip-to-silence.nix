@@ -14,11 +14,11 @@ buildLua {
     hash = "sha256-b3Z9T1NfNdUzUF3to1DhBm6CpiXnoBDfaRqzXrIE8ds=";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Skips to the next silence in the currently playing media";
     homepage = "https://github.com/detuur/mpv-scripts";
-    platforms = platforms.all;
-    license = licenses.mit;
-    maintainers = with maintainers; [diniamo];
+    platforms = lib.platforms.all;
+    license = lib.licenses.mit;
+    maintainers = [lib.maintainers.diniamo];
   };
 }
