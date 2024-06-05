@@ -10,7 +10,6 @@ alacritty.overrideAttrs (old: rec {
     hash = "sha256-yajypRvpdy6Tjm5pBaEjOq0ykulEZtujklTzYrBoIFQ=";
   };
 
-  # Why would you compile twice?
   doCheck = false;
 
   cargoDeps = old.cargoDeps.overrideAttrs {
