@@ -18,10 +18,10 @@
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = import systems;
+      imports = [./pkgs];
 
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
-        legacyPackages = import ./pkgs {inherit pkgs;};
       };
 
       flake.nixConfig = {
