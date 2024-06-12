@@ -8,6 +8,7 @@
       bencode-pretty = mkPackage ./bencode-pretty.nix;
       starship-nix3-shell = mkPackage ./starship-nix3-shell.nix;
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
+      swayimg-git = mkPackage ./swayimg-git.nix;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
