@@ -1,7 +1,7 @@
 {
   perSystem = {pkgs, ...}: let
     mkPackage = path: pkgs.callPackage path {};
-    mkMpvPackage = path: pkgs.mpvScripts.callPackage path {};
+    mkMpvScript = path: pkgs.mpvScripts.callPackage path {};
   in {
     # garnix doesn't support legacyPackages
     packages = {
@@ -14,8 +14,8 @@
       cbmp = mkPackage ./nodePackages/cbmp;
 
       # mpvScripts
-      simple-undo = mkMpvPackage ./mpvScripts/simple-undo.nix;
-      skip-to-silence = mkMpvPackage ./mpvScripts/skip-to-silence.nix;
+      simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
+      skip-to-silence = mkMpvScript ./mpvScripts/skip-to-silence.nix;
     };
   };
 }
