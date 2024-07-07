@@ -2,6 +2,9 @@
   perSystem = {pkgs, ...}: let
     mkPackage = path: pkgs.callPackage path {};
     mkMpvScript = path: pkgs.mpvScripts.callPackage path {};
+    # There is also a buildNeovimPlugin in nixpkgs
+    # but the name is misleading since it's only used for building plugins from existing lua packages
+    mkVimPlugin = path: pkgs.callPackage path {inherit (pkgs.vimUtils) buildVimPlugin;};
   in {
     # garnix doesn't support legacyPackages
     packages = {
@@ -17,6 +20,9 @@
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
       skip-to-silence = mkMpvScript ./mpvScripts/skip-to-silence.nix;
+
+      # vimPlugins
+      direnv-nvim = mkVimPlugin ./vimPlugins/direnv-nvim.nix;
     };
   };
 }
