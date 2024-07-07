@@ -1,5 +1,4 @@
 {
-  lib,
   fetchFromGitHub,
   buildLua,
 }:
@@ -15,12 +14,4 @@ buildLua rec {
   };
 
   scriptPath = "scripts/${pname}.lua";
-
-  meta = {
-    description = "Accidentally seeked? No worries, simply undo..";
-    homepage = "https://github.com/Eisa01/mpv-scripts";
-    platforms = lib.platforms.all;
-    license = lib.licenses.bsd2;
-    maintainers = [lib.maintainers.diniamo];
-  };
 }

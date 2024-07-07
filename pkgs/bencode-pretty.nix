@@ -1,7 +1,6 @@
 {
   stdenv,
   fetchFromGitHub,
-  lib,
 }:
 stdenv.mkDerivation {
   pname = "bencode-pretty";
@@ -22,10 +21,4 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
-
-  meta = {
-    description = "Programs to create a \"pretty\" version of a bencoded file that can be easily examined and edited, and another to \"unpretty\" it again.";
-    homepage = "https://github.com/tool-maker/bencode-pretty";
-    maintainers = [lib.maintainers.diniamo];
-  };
 }

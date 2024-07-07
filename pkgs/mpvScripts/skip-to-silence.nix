@@ -1,5 +1,4 @@
 {
-  lib,
   fetchFromGitHub,
   buildLua,
 }:
@@ -12,13 +11,5 @@ buildLua {
     repo = "mpv-scripts";
     rev = "0125d5eaaa6614464fbb0ee4fb7aa22a942367e8";
     hash = "sha256-b3Z9T1NfNdUzUF3to1DhBm6CpiXnoBDfaRqzXrIE8ds=";
-  };
-
-  meta = {
-    description = "Skips to the next silence in the currently playing media";
-    homepage = "https://github.com/detuur/mpv-scripts";
-    platforms = lib.platforms.all;
-    license = lib.licenses.mit;
-    maintainers = [lib.maintainers.diniamo];
   };
 }

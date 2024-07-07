@@ -22,12 +22,4 @@ buildNpmPackage rec {
   env.PUPPETEER_SKIP_DOWNLOAD = true;
   postPatch = "cp ${./package-lock.json} package-lock.json";
   postInstall = "wrapProgram $out/bin/cbmp --set PUPPETEER_EXECUTABLE_PATH ${lib.getExe chromium}";
-
-  meta = {
-    description = "CLI App for converting cursor svg file to png. ";
-    homepage = "https://github.com/ful1e5/cbmp";
-    license = lib.licenses.mit;
-    mainProgram = "cbmp";
-    maintainers = [lib.maintainers.diniamo];
-  };
 }
