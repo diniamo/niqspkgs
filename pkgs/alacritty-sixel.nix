@@ -10,8 +10,6 @@ alacritty.overrideAttrs (old: rec {
     hash = "sha256-yajypRvpdy6Tjm5pBaEjOq0ykulEZtujklTzYrBoIFQ=";
   };
 
-  doCheck = false;
-
   cargoDeps = old.cargoDeps.overrideAttrs {
     inherit src;
     outputHash = "sha256-F9NiVbTIVOWUXnHtIUvxlZ5zvGtgz/AAyAhyS4w9f9I=";
