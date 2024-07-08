@@ -13,6 +13,7 @@
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
       swayimg-git = mkPackage ./swayimg-git.nix;
       lix-default-flake = mkPackage ./lix-default-flake.nix;
+      comma-sensible-print = mkPackage ./comma-sensible-print.nix;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
