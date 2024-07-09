@@ -14,6 +14,7 @@
       swayimg-git = mkPackage ./swayimg-git.nix;
       lix-default-flake = mkPackage ./lix-default-flake.nix;
       comma-sensible-print = mkPackage ./comma-sensible-print.nix;
+      nom-traces-nf-icons = mkPackage ./nom-traces-icons.nix;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
