@@ -3,6 +3,8 @@
   fetchFromGitHub,
 }:
 comma.overrideAttrs (prev: {
+  pname = "comma-sensible-print";
+
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "comma";

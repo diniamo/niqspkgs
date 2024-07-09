@@ -15,6 +15,8 @@
   };
 in
   nix-output-monitor.overrideAttrs (prev: {
+    pname = "nix-output-monitor-traces-icons";
+
     patches =
       (prev.patches or [])
       ++ [
