@@ -1,10 +1,12 @@
-{
+{self, ...}: {
   perSystem = {pkgs, ...}: let
-    mkPackage = path: pkgs.callPackage path {};
+    inherit (pkgs) callPackage;
+
+    mkPackage = path: callPackage path {};
     mkMpvScript = path: pkgs.mpvScripts.callPackage path {};
-    # There is also a buildNeovimPlugin in nixpkgs
-    # but the name is misleading since it's only used for building plugins from existing lua packages
-    mkVimPlugin = path: pkgs.callPackage path {inherit (pkgs.vimUtils) buildVimPlugin;};
+    # There is also a buildNeovimPlugin function in nixpkgs
+    # but the name is misleading, since it's only used for building plugins from existing lua packages
+    mkVimPlugin = path: callPackage path {inherit (pkgs.vimUtils) buildVimPlugin;};
   in {
     # garnix doesn't support legacyPackages
     packages = {
@@ -15,6 +17,7 @@
       lix-default-flake = mkPackage ./lix-default-flake.nix;
       comma-sensible-print = mkPackage ./comma-sensible-print.nix;
       nom-traces-nf-icons = mkPackage ./nom-traces-icons.nix;
+      nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
