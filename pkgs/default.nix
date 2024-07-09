@@ -14,7 +14,7 @@
       starship-nix3-shell = mkPackage ./starship-nix3-shell.nix;
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
       swayimg-git = mkPackage ./swayimg-git.nix;
-      lix-default-flake = mkPackage ./lix-default-flake.nix;
+      lix-super = mkPackage ./lix-super.nix;
       comma-sensible-print = mkPackage ./comma-sensible-print.nix;
       nom-traces-icons = mkPackage ./nom-traces-icons.nix;
       nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
