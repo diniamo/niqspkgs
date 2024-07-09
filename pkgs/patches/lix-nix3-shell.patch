@@ -1,23 +1,11 @@
-From a83caea82953d5f581128baf559cacaec6e0d2a2 Mon Sep 17 00:00:00 2001
-From: Alex Shabalin <alex.shabalin@tweag.io>
-Date: Wed, 17 Nov 2021 16:09:36 +0100
-Subject: [PATCH] Set IN_NIX3_SHELL env variable in "nix shell"
-
-Solving issue https://github.com/NixOS/nix/issues/3862
-
-Co-authored-by: Alexander Bantyev <balsoft@balsoft.ru>
----
- src/nix/run.cc | 1 +
- 1 file changed, 1 insertion(+)
-
 diff --git a/src/nix/run.cc b/src/nix/run.cc
-index b01fdebaa..8e0eba00b 100644
+index 824201fdf..d6304f3c1 100644
 --- a/src/nix/run.cc
 +++ b/src/nix/run.cc
-@@ -120,6 +120,7 @@ struct CmdShell : InstallablesCommand, MixEnvironment
-         }
- 
-         setenv("PATH", concatStringsSep(":", unixPath).c_str(), 1);
+@@ -135,6 +135,7 @@ struct CmdShell : InstallablesCommand, MixEnvironment
+         unixPath.insert(unixPath.begin(), pathAdditions.begin(), pathAdditions.end());
+         auto unixPathString = concatStringsSep(":", unixPath);
+         setenv("PATH", unixPathString.c_str(), 1);
 +        setenv("IN_NIX3_SHELL", "1", 1);
  
          Strings args;
