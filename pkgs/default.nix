@@ -18,6 +18,7 @@
       comma-sensible-print = mkPackage ./comma-sensible-print.nix;
       nom-traces-icons = mkPackage ./nom-traces-icons.nix;
       nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
+      fish-no-etc-config = mkPackage ./fish-no-etc-config.nix;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
