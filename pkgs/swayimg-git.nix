@@ -8,7 +8,7 @@ swayimg.overrideAttrs {
   src = fetchFromGitHub {
     owner = "artemsen";
     repo = "swayimg";
-    rev = "a8cfb977355e7cd0cf97d1ad8b01fafc6e8236f2";
-    hash = "sha256-C4fB7gQD0NLojW8Yfcm5WS/kFMONCtkKFd1WMpK+4bw=";
+    rev = "2f33c4c869139d234e81c535334cfc526ee9b481";
+    hash = "sha256-YmiT3W7VrTzH9sK3H2ownUHRiv8GeFbEqu1V/nJGyPs=";
   };
 }
