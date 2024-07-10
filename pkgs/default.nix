@@ -29,6 +29,7 @@
 
       # vimPlugins
       direnv-nvim = mkVimPlugin ./vimPlugins/direnv-nvim.nix;
+      neozoom-lua = mkVimPlugin ./vimPlugins/neozoom-lua.nix;
     };
   };
 }
