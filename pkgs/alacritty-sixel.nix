@@ -8,8 +8,8 @@ alacritty.overrideAttrs (old: rec {
   src = fetchFromGitHub {
     owner = "ayosec";
     repo = "alacritty";
-    rev = "e0d84e48e1a9705219a1a3074e087d3f015c4144";
-    hash = "sha256-yajypRvpdy6Tjm5pBaEjOq0ykulEZtujklTzYrBoIFQ=";
+    rev = "6c4910fd20c7bab08b3bcee00eed4b5e4b37ef08";
+    hash = "sha256-84rdjQzWNupN5dJsK6Txfl+EARXmkMIQ4TyfjIP1hTE=";
   };
 
   cargoDeps = old.cargoDeps.overrideAttrs {
