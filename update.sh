@@ -28,6 +28,6 @@ for pkg in "$@"; do
 
     sed -i \
         -e "s/rev = \".*\"/rev = \"$(printf '%s' "$json" | jaq -r '.rev')\"/" \
-        -e "s/hash = \".*\"/hash = \"$(printf '%s' "$json" | jaq -r '.sha256')\"/" \
+        -e "s/hash = \".*\"/hash = \"$(printf '%s' "$json" | jaq -r '.sha256' | sed 's,/,\\/,')\"/" \
         "$pkg"
 done
