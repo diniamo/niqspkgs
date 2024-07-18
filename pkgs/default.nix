@@ -20,6 +20,7 @@
       nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
       fish-no-etc-config = mkPackage ./fish-no-etc-config.nix;
       satty-git = mkPackage ./satty-git.nix;
+      trashy-match-exact-dir = mkPackage ./trashy-match-exact-dir.nix;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;

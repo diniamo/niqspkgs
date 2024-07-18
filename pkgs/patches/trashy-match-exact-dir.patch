@@ -1,0 +1,13 @@
+diff --git a/src/filter.rs b/src/filter.rs
+index efffe97..175b14b 100644
+--- a/src/filter.rs
++++ b/src/filter.rs
+@@ -167,7 +167,7 @@ impl Filter {
+             }
+             Filter::Time(time_filter) => time_filter.is_match(Utc.timestamp(item.time_deleted, 0)),
+             Filter::Directories(directories) => {
+-                directories.iter().all(|p| item.original_path().starts_with(p))
++                directories.iter().all(|p| *p == item.original_parent)
+             }
+         }
+     }
