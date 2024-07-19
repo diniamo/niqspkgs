@@ -4,12 +4,12 @@
 }:
 buildVimPlugin {
   pname = "fastaction.nvim";
-  version = "2024-07-16";
+  version = "2024-07-19";
 
   src = fetchFromGitHub {
     owner = "Chaitanyabsprip";
     repo = "fastaction.nvim";
-    rev = "0912cb71c947f48c3b361cf28e3079e169fc0416";
-    hash = "sha256-MSmsbv2K8R2pUuEgSZYRWmDR808lIF285yRlDlV+3dw=";
+    rev = "2384dea7ba81d2709d0bee0e4bc7a8831ff13a9d";
+    hash = "sha256-L7na78FsE+QHlEwxMpiwQcoOPhtmrknvdTZfzUoDANI=";
   };
 }
