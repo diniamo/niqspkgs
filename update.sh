@@ -5,7 +5,7 @@ set -e
 
 for pkg in "$@"; do
     if [ ! -f "$pkg" ]; then
-        for file in **/*.nix; do
+        for file in $(find "$(dirname "$0")" -name '*.nix'); do
             if [ "$(basename "$file")" = "$pkg.nix" ]; then
                 pkg="$file"
                 break
