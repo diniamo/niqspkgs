@@ -33,6 +33,7 @@
       direnv-nvim = mkVimPlugin ./vimPlugins/direnv-nvim.nix;
       neozoom-lua = mkVimPlugin ./vimPlugins/neozoom-lua.nix;
       bufresize-nvim = mkVimPlugin ./vimPlugins/bufresize-nvim.nix;
+      fastaction-nvim = mkVimPlugin ./vimPlugins/fastaction-nvim.nix;
     };
   };
 }
