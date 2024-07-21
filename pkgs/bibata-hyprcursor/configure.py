@@ -24,8 +24,8 @@ def construct_meta(config, name, sizes):
             if (overrides := fallback_value(config, name, "x11_symlinks")) is None
             else ";".join(overrides)
         ),
-        hotspot_x=fallback_value(config, name, "x_hotspot"),
-        hotspot_y=fallback_value(config, name, "y_hotspot"),
+        hotspot_x=fallback_value(config, name, "x_hotspot") / 256,
+        hotspot_y=fallback_value(config, name, "y_hotspot") / 256,
     )
 
     with open(f"{name}/meta.toml", "wb") as file:
