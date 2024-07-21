@@ -21,6 +21,7 @@
       fish-no-etc-config = mkPackage ./fish-no-etc-config.nix;
       satty-git = mkPackage ./satty-git.nix;
       trashy-match-exact-dir = mkPackage ./trashy-match-exact-dir.nix;
+      bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
