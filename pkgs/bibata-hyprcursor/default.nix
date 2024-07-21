@@ -6,9 +6,9 @@
   lib,
   hyprcursor,
   variant ? "modern",
-  baseColor ? "#FFFFFF",
-  outlineColor ? "#000000",
-  watchBackgroundColor ? "#FFFFFF",
+  baseColor ? "#000000",
+  outlineColor ? "#FFFFFF",
+  watchBackgroundColor ? "#000000",
 }:
 assert builtins.elem variant ["modern" "modern-right" "original" "original-right"];
   stdenvNoCC.mkDerivation (final: {
