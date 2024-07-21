@@ -6,6 +6,9 @@
   lib,
   hyprcursor,
   variant ? "modern",
+  baseColor ? "#FFFFFF",
+  outlineColor ? "#000000",
+  watchBackgroundColor ? "#FFFFFF",
 }:
 assert builtins.elem variant ["modern" "modern-right" "original" "original-right"];
   stdenvNoCC.mkDerivation (final: {
@@ -56,6 +59,8 @@ assert builtins.elem variant ["modern" "modern-right" "original" "original-right
       version = ${final.version}
       cursors_directory = cursors
       EOF
+
+      find cursors -type f -name '*.svg' | xargs sed -i -e 's/#00FF00/${baseColor}/g' -e 's/#0000FF/${outlineColor}/g' -e 's/#FF0000/${watchBackgroundColor}/g'
 
       python ${./configure.py} config.toml cursors
 
