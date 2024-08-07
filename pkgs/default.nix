@@ -22,7 +22,7 @@
       satty-git = mkPackage ./satty-git.nix;
       trashy-match-exact-dir = mkPackage ./trashy-match-exact-dir.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
-      coreutils-advcpmv = mkPackage ./coreutils-advcpmv.nix;
+      coreutils-full-advcpmv = mkPackage ./coreutils-full-advcpmv.nix;
 
       # nodePackages
       cbmp = mkPackage ./nodePackages/cbmp;
