@@ -15,7 +15,7 @@
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
       swayimg-git = mkPackage ./swayimg-git.nix;
       lix-super = mkPackage ./lix-super.nix;
-      comma-sensible-print = mkPackage ./comma-sensible-print.nix;
+      comma-patched = mkPackage ./comma-patched.nix;
       nom-traces-icons = mkPackage ./nom-traces-icons.nix;
       nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
       fish-no-etc-config = mkPackage ./fish-no-etc-config.nix;
