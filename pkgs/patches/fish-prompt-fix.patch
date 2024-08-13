@@ -1,0 +1,18 @@
+diff --git a/src/screen.cpp b/src/screen.cpp
+index 2873389..dfe2988 100644
+--- a/src/screen.cpp
++++ b/src/screen.cpp
+@@ -754,10 +754,10 @@ void screen_t::update(const wcstring &left_prompt, const wcstring &right_prompt,
+         this->move(0, 0);
+         size_t start = 0;
+         for (const size_t line_break : left_prompt_layout.line_breaks) {
+-            this->write_str(left_prompt.substr(start, line_break - start));
+-            if (clr_eol) {
+-                this->write_mbs(clr_eol);
++            if (delete_line) {
++                this->write_mbs(delete_line);
+             }
++            this->write_str(left_prompt.substr(start, line_break - start));
+             start = line_break;
+         }
+         this->write_str(left_prompt.substr(start));

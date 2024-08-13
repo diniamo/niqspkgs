@@ -18,7 +18,7 @@
       comma-patched = mkPackage ./comma-patched.nix;
       nom-traces-icons = mkPackage ./nom-traces-icons.nix;
       nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
-      fish-no-etc-config = mkPackage ./fish-no-etc-config.nix;
+      fish-patched = mkPackage ./fish-patched.nix;
       satty-git = mkPackage ./satty-git.nix;
       trashy-match-exact-dir = mkPackage ./trashy-match-exact-dir.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
