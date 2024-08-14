@@ -20,7 +20,6 @@
       nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
       fish-patched = mkPackage ./fish-patched.nix;
       satty-git = mkPackage ./satty-git.nix;
-      trashy-match-exact-dir = mkPackage ./trashy-match-exact-dir.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
       coreutils-full-advcpmv = mkPackage ./coreutils-full-advcpmv.nix;
 
