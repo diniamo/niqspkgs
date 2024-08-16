@@ -23,9 +23,6 @@
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
       coreutils-full-advcpmv = mkPackage ./coreutils-full-advcpmv.nix;
 
-      # nodePackages
-      cbmp = mkPackage ./nodePackages/cbmp;
-
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
       skip-to-silence = mkMpvScript ./mpvScripts/skip-to-silence.nix;
