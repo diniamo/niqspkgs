@@ -92,6 +92,8 @@ stdenv.mkDerivation (finalAttrs: {
       wayland-protocols
       libdrm
       (wlroots.overrideAttrs {
+        version = "0.19.0";
+
         src = fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
           owner = "wlroots";
