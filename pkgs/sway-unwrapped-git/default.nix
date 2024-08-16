@@ -122,4 +122,6 @@ stdenv.mkDerivation (finalAttrs: {
     (mesonOption "sd-bus-provider" sd-bus-provider)
     (mesonEnable "tray" finalAttrs.trayEnabled)
   ];
+
+  meta.mainProgram = "sway";
 })
