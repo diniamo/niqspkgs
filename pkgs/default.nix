@@ -19,7 +19,6 @@
       nom-patched = mkPackage ./nom-patched.nix;
       nh-patched = callPackage ./nh-patched.nix {inherit self;};
       fish-patched = mkPackage ./fish-patched.nix;
-      satty-git = mkPackage ./satty-git.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
       coreutils-full-patched = mkPackage ./coreutils-full-patched.nix;
       sway-unwrapped-git = mkPackage ./sway-unwrapped-git;
