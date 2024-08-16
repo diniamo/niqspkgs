@@ -14,14 +14,8 @@
     "∑" = "f04a0";
   };
 in
-  nix-output-monitor.overrideAttrs (prev: {
+  nix-output-monitor.overrideAttrs {
     pname = "nix-output-monitor-patched";
-
-    patches =
-      (prev.patches or [])
-      ++ [
-        ./patches/nom-print-traces.patch
-      ];
 
     postPatch = ''
       substituteInPlace lib/NOM/Print.hs \
@@ -29,4 +23,4 @@ in
 
       substituteInPlace lib/NOM/Print/Tree.hs --replace-fail '┌' '╭'
     '';
-  })
+  }
