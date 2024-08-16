@@ -22,6 +22,7 @@
       satty-git = mkPackage ./satty-git.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
       coreutils-full-patched = mkPackage ./coreutils-full-patched.nix;
+      sway-unwrapped-git = mkPackage ./sway-unwrapped-git;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
