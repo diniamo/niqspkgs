@@ -4,6 +4,7 @@
 }:
 alacritty.overrideAttrs (old: rec {
   pname = "alacritty-sixel";
+  version = "2024-07-13";
 
   src = fetchFromGitHub {
     owner = "ayosec";

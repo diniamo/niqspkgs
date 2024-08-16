@@ -1,6 +1,6 @@
 {lix}:
 lix.overrideAttrs (prev: {
-  pname = "lix-super";
+  pname = "lix-patched";
 
   patches =
     (prev.patches or [])

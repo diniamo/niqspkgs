@@ -11,17 +11,17 @@
     # garnix doesn't support legacyPackages
     packages = {
       bencode-pretty = mkPackage ./bencode-pretty.nix;
-      starship-nix3-shell = mkPackage ./starship-nix3-shell.nix;
+      starship-patched = mkPackage ./starship-patched.nix;
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
       swayimg-git = mkPackage ./swayimg-git.nix;
-      lix-super = mkPackage ./lix-super.nix;
+      lix-patched = mkPackage ./lix-patched.nix;
       comma-patched = mkPackage ./comma-patched.nix;
-      nom-traces-icons = mkPackage ./nom-traces-icons.nix;
-      nh-patched-nom = callPackage ./nh-patched-nom.nix {inherit self;};
+      nom-patched = mkPackage ./nom-patched.nix;
+      nh-patched = callPackage ./nh-patched.nix {inherit self;};
       fish-patched = mkPackage ./fish-patched.nix;
       satty-git = mkPackage ./satty-git.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
-      coreutils-full-advcpmv = mkPackage ./coreutils-full-advcpmv.nix;
+      coreutils-full-patched = mkPackage ./coreutils-full-patched.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;

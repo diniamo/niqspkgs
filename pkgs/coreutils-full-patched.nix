@@ -3,7 +3,7 @@
   fetchpatch,
 }:
 coreutils-full.overrideAttrs (prev: {
-  pname = "coreutils-full-advcpmv";
+  pname = "coreutils-full-patched";
 
   patches =
     (prev.patches or [])

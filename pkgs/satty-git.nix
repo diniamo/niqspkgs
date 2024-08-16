@@ -3,10 +3,12 @@
   fetchFromGitHub,
 }:
 satty.overrideAttrs {
+  version = "2024-07-26";
+
   src = fetchFromGitHub {
     owner = "gabm";
     repo = "Satty";
-    rev = "84e6b1b3cbc8382d50d43971e5f42445c1eaff90";
-    hash = "sha256-x1QyM4wq9T1gFZVsTqHIRRJPPHdoSNNDjkwW5RrN7DU=";
+    rev = "04fae6c9072bed46913a85762db17d58718d85b3";
+    hash = "sha256-0vZvHCS/vzYIhrTwauaPBfoz9p2E7jVjfBIlc6IYFpQ=";
   };
 }

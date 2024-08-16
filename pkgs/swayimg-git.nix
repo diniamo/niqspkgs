@@ -3,6 +3,8 @@
   fetchFromGitHub,
 }:
 swayimg.overrideAttrs {
+  version = "2024-07-12";
+
   src = fetchFromGitHub {
     owner = "artemsen";
     repo = "swayimg";

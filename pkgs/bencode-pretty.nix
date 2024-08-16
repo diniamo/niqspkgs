@@ -4,7 +4,7 @@
 }:
 stdenv.mkDerivation {
   pname = "bencode-pretty";
-  version = "2017.12.26";
+  version = "2017-12-26";
 
   src = fetchFromGitHub {
     owner = "tool-maker";
