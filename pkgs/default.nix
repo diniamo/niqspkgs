@@ -1,4 +1,4 @@
-{self, ...}: {
+{self, inputs, ...}: {
   perSystem = {pkgs, ...}: let
     inherit (pkgs) callPackage;
 
@@ -14,7 +14,7 @@
       starship-patched = mkPackage ./starship-patched.nix;
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
       swayimg-git = mkPackage ./swayimg-git.nix;
-      lix-patched = mkPackage ./lix-patched.nix;
+      lix-patched = callPackage ./lix-patched.nix {inherit inputs;};
       comma-patched = mkPackage ./comma-patched.nix;
       nom-patched = mkPackage ./nom-patched.nix;
       nh-patched = callPackage ./nh-patched.nix {inherit self;};
