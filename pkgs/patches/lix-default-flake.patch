@@ -1,5 +1,5 @@
 diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
-index ab0e4fd1c..e56c59712 100644
+index 711cf1b07..1c9de5930 100644
 --- a/src/libcmd/installables.cc
 +++ b/src/libcmd/installables.cc
 @@ -37,6 +37,23 @@ void completeFlakeInputPath(
@@ -26,27 +26,21 @@ index ab0e4fd1c..e56c59712 100644
  MixFlakeOptions::MixFlakeOptions()
  {
      auto category = "Common flake-related options";
-@@ -276,20 +293,34 @@ void completeFlakeRefWithFragment(
+@@ -276,20 +293,23 @@ void completeFlakeRefWithFragment(
      /* Look for flake output attributes that match the
         prefix. */
      try {
 +        bool isAttrPath = std::regex_match(prefix.begin(), prefix.end(), attrPathRegex);
          auto hash = prefix.find('#');
-+
          if (hash == std::string::npos) {
--            completeFlakeRef(completions, evalState->store, prefix);
+             completeFlakeRef(completions, evalState->store, prefix);
 -        } else {
 +        }
-+
 +        if (isAttrPath || hash != std::string::npos) {
              completions.setType(AddCompletions::Type::Attrs);
  
 -            auto fragment = prefix.substr(hash + 1);
-+            auto fragment =
-+                isAttrPath
-+                ? prefix
-+                : prefix.substr(hash + 1);
-+
++            auto fragment = isAttrPath ? prefix : prefix.substr(hash + 1);
              std::string prefixRoot = "";
              if (fragment.starts_with(".")){
                  fragment = fragment.substr(1);
@@ -54,34 +48,18 @@ index ab0e4fd1c..e56c59712 100644
              }
 -            auto flakeRefS = std::string(prefix.substr(0, hash));
 -            auto flakeRef = parseFlakeRef(expandTilde(flakeRefS), absPath("."));
-+            auto flakeRefS =
-+                isAttrPath
-+                ? std::string(installablesSettings.getDefaultFlake(prefix))
-+                : expandTilde(std::string(prefix.substr(0, hash)));
-+
++            auto flakeRefS = isAttrPath ? std::string(installablesSettings.getDefaultFlake(prefix)) : expandTilde(std::string(prefix.substr(0, hash)));
 +            // FIXME: do tilde expansion.
-+            auto flakeRef = parseFlakeRef(
-+                flakeRefS,
-+                isAttrPath ? std::optional<std::string>{} : absPath("."));
++            auto flakeRef = parseFlakeRef(flakeRefS, isAttrPath ? std::optional<std::string>{} : absPath("."));
  
              auto evalCache = openEvalCache(*evalState,
                  std::make_shared<flake::LockedFlake>(lockFlake(*evalState, flakeRef, lockFlags)));
-@@ -299,6 +330,7 @@ void completeFlakeRefWithFragment(
-             if (prefixRoot == "."){
-                 attrPathPrefixes.clear();
-             }
-+
-             /* Complete 'fragment' relative to all the
-                attrpath prefixes as well as the root of the
-                flake. */
-@@ -323,7 +355,13 @@ void completeFlakeRefWithFragment(
+@@ -323,7 +343,11 @@ void completeFlakeRefWithFragment(
                          auto attrPath2 = (*attr)->getAttrPath(attr2);
                          /* Strip the attrpath prefix. */
                          attrPath2.erase(attrPath2.begin(), attrPath2.begin() + attrPathPrefix.size());
 -                        completions.add(flakeRefS + "#" + prefixRoot + concatStringsSep(".", evalState->symbols.resolve(attrPath2)));
-+
 +                        std::string resolvedAttrPath2 = prefixRoot + concatStringsSep(".", evalState->symbols.resolve(attrPath2));
-+
 +                        if (isAttrPath)
 +                            completions.add(resolvedAttrPath2);
 +                        else
@@ -89,7 +67,7 @@ index ab0e4fd1c..e56c59712 100644
                      }
                  }
              }
-@@ -360,7 +398,7 @@ void completeFlakeRef(AddCompletions & completions, ref<Store> store, std::strin
+@@ -360,7 +384,7 @@ void completeFlakeRef(AddCompletions & completions, ref<Store> store, std::strin
              if (!prefix.starts_with("flake:") && from.starts_with("flake:")) {
                  std::string from2(from, 6);
                  if (from2.starts_with(prefix))
@@ -98,7 +76,7 @@ index ab0e4fd1c..e56c59712 100644
              } else {
                  if (from.starts_with(prefix))
                      completions.add(from);
-@@ -475,7 +513,13 @@ Installables SourceExprCommand::parseInstallables(
+@@ -482,7 +506,13 @@ Installables SourceExprCommand::parseInstallables(
              }
  
              try {
@@ -114,13 +92,14 @@ index ab0e4fd1c..e56c59712 100644
                          this,
                          getEvalState(),
 diff --git a/src/libcmd/installables.hh b/src/libcmd/installables.hh
-index 95e8841ca..3e43b859d 100644
+index 95e8841ca..22aba5ea2 100644
 --- a/src/libcmd/installables.hh
 +++ b/src/libcmd/installables.hh
-@@ -12,6 +12,16 @@
+@@ -12,6 +12,17 @@
  
  namespace nix {
  
++
 +struct InstallablesSettings : Config
 +{
 +    Setting<std::string> defaultFlake{this, "", "default-flake",
@@ -135,25 +114,24 @@ index 95e8841ca..3e43b859d 100644
  
  enum class Realise {
 diff --git a/src/nix/search.cc b/src/nix/search.cc
-index 97ef1375e..41d6f1495 100644
+index 9f6b7a24e..130fa879a 100644
 --- a/src/nix/search.cc
 +++ b/src/nix/search.cc
 @@ -23,8 +23,9 @@ std::string wrap(std::string prefix, std::string s)
      return concatStrings(prefix, s, ANSI_NORMAL);
  }
  
--struct CmdSearch : InstallableValueCommand, MixJSON
+-struct CmdSearch : InstallableCommand, MixJSON
 +struct CmdSearch : SourceExprCommand, MixJSON
  {
 +    std::string _installable{installablesSettings.defaultFlake};
      std::vector<std::string> res;
      std::vector<std::string> excludeRes;
  
-@@ -40,6 +41,24 @@ struct CmdSearch : InstallableValueCommand, MixJSON
+@@ -40,6 +41,23 @@ struct CmdSearch : InstallableCommand, MixJSON
                  excludeRes.push_back(s);
              }},
          });
-+
 +        bool hasInstallable = false;
 +
 +        addFlag({
@@ -174,47 +152,32 @@ index 97ef1375e..41d6f1495 100644
      }
  
      std::string description() override
-@@ -62,14 +81,21 @@ struct CmdSearch : InstallableValueCommand, MixJSON
+@@ -62,16 +80,20 @@ struct CmdSearch : InstallableCommand, MixJSON
          };
      }
  
--    void run(ref<Store> store, ref<InstallableValue> installable) override
+-    void run(ref<Store> store, ref<Installable> installable) override
 +    void run(ref<Store> store) override
      {
+-        auto const installableValue = InstallableValue::require(installable);
 +        if (_installable == "" && ! file && ! expr) {
 +            throw UsageError("nothing to search from, set 'default-flake' option or specify one of '--installable', '--file', '--expr'");
 +        }
 +
++        auto const installableValue = InstallableValue::require(parseInstallable(store, (file || expr) ? "" : _installable));
+ 
          settings.readOnlyMode = true;
          evalSettings.enableImportFromDerivation.setDefault(false);
  
-+        auto installable = InstallableValue::require(
-+            parseInstallable(store, (file || expr) ? "" : _installable));
-+
          // Recommend "^" here instead of ".*" due to differences in resulting highlighting
          if (res.empty())
 -            throw UsageError("Must provide at least one regex! To match all packages, use '%s'.", "nix search <installable> ^");
-+            throw UsageError("Must provide at least one regex! To match all packages, use '%s'.", "nix search ^");
++            throw UsageError("Must provide at least one regex! To match all packages, use '%s'.", "nix search ^", "nix search <installable> ^");
  
          std::vector<std::regex> regexes;
          std::vector<std::regex> excludeRegexes;
-diff --git a/tests/functional/completions.sh b/tests/functional/completions.sh
-index d3d5bbd48..a5ab90220 100644
---- a/tests/functional/completions.sh
-+++ b/tests/functional/completions.sh
-@@ -38,8 +38,8 @@ EOF
- [[ "$(NIX_GET_COMPLETIONS=2 nix flake metad)" == $'normal\nmetadata\t' ]]
- 
- # Filename completion
--[[ "$(NIX_GET_COMPLETIONS=2 nix build ./f)" == $'filenames\n./foo\t' ]]
--[[ "$(NIX_GET_COMPLETIONS=2 nix build ./nonexistent)" == $'filenames' ]]
-+#[[ "$(NIX_GET_COMPLETIONS=2 nix build ./f)" == $'filenames\n./foo\t' ]]
-+#[[ "$(NIX_GET_COMPLETIONS=2 nix build ./nonexistent)" == $'filenames' ]]
- 
- # Input override completion
- [[ "$(NIX_GET_COMPLETIONS=4 nix build ./foo --override-input '')" == $'normal\na\t' ]]
 diff --git a/tests/functional/flakes/flakes.sh b/tests/functional/flakes/flakes.sh
-index 3ef518b23..8b88dbb8f 100644
+index 75cc329e5..a0b76012c 100644
 --- a/tests/functional/flakes/flakes.sh
 +++ b/tests/functional/flakes/flakes.sh
 @@ -116,7 +116,7 @@ nix build -o $TEST_ROOT/result flake1#foo
@@ -227,10 +190,10 @@ index 3ef518b23..8b88dbb8f 100644
  
  nix build -o $TEST_ROOT/result $flake1Dir
 diff --git a/tests/functional/search.sh b/tests/functional/search.sh
-index d9c7a75da..35f665db6 100644
+index 1a2a20089..e5171810b 100644
 --- a/tests/functional/search.sh
 +++ b/tests/functional/search.sh
-@@ -3,43 +3,42 @@ source common.sh
+@@ -3,29 +3,29 @@ source common.sh
  clearStore
  clearCache
  
@@ -259,7 +222,7 @@ index d9c7a75da..35f665db6 100644
  
  ## Search expressions
  
--# Check that empty search string matches all
+ # Check that empty search string matches all
 -nix search -f search.nix '' ^ | grepQuiet foo
 -nix search -f search.nix '' ^ | grepQuiet bar
 -nix search -f search.nix '' ^ | grepQuiet hello
@@ -269,6 +232,8 @@ index d9c7a75da..35f665db6 100644
  
  ## Tests for multiple regex/match highlighting
  
+@@ -33,15 +33,15 @@ nix search -f search.nix '' ^ | grepQuiet hello
+ export CLICOLOR_FORCE=1
  e=$'\x1b' # grep doesn't support \e, \033 or even \x1b
  # Multiple overlapping regexes
 -(( $(nix search -f search.nix '' 'oo' 'foo' 'oo' | grep -c "$e\[32;1mfoo$e\\[0;1m") == 1 ))
