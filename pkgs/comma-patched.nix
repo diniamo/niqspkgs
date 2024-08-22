@@ -9,7 +9,7 @@ comma.overrideAttrs (prev: rec {
     owner = "diniamo";
     repo = "comma";
     rev = "cache-choices-sensible-print";
-    hash = "sha256-nFRQ2K3Tx3lrimh3Rfn9wXK8Cw5rexL4BEYlYFp95Pc=";
+    hash = "sha256-mtlW9wDZyISjMYZeVSUGDbBCEzu4+2neDx3fD9rj0To=";
   };
 
   cargoDeps = prev.cargoDeps.overrideAttrs {
