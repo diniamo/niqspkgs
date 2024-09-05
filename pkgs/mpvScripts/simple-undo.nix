@@ -4,7 +4,7 @@
 }:
 buildLua rec {
   pname = "SimpleUndo";
-  version = "2023-09-25";
+  version = "25-09-2023";
 
   src = fetchFromGitHub {
     owner = "Eisa01";
