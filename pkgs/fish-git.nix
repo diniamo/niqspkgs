@@ -177,7 +177,7 @@ in
       ];
 
     # Fish’s test suite needs to be able to look up process information and send signals.
-    sandboxProfile = lib.optionalString stdenv.isDarwin ''
+    sandboxProfile = optionalString stdenv.isDarwin ''
       (allow mach-lookup mach-task-name)
       (allow signal (target children))
     '';
