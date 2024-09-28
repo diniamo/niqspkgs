@@ -14,6 +14,6 @@ comma.overrideAttrs (prev: rec {
 
   cargoDeps = prev.cargoDeps.overrideAttrs {
     inherit src;
-    outputHash = "sha256-RPLkVqQFVVAyw5J1jaBRPx8zOEA5Mwzj1Z+dMIpQwMo=";
+    outputHash = "sha256-gjChTXqQAZiTlaAR8ibLuMBXTFCcaZCA2riLZa5JoRU=";
   };
 })
