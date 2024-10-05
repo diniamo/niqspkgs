@@ -138,13 +138,13 @@
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "fish";
-    version = "2024-09-28";
+    version = "2024-10-05";
 
     src = fetchFromGitHub {
       owner = "fish-shell";
       repo = "fish-shell";
-      rev = "263f1b35de01cb04a6c2cbc635ae0258f8401a3f";
-      hash = "sha256-LbSL1Q06+fkxVpWuX4BGhP48KYJX0jI2YoENkuetUd8=";
+      rev = "052e764f29ab1a123ed0e7643c396c3fe805ebcc";
+      hash = "sha256-3DpnYoW0CznpeeHChS/33qxr9xJJJj8EbAnM1tpCl2w=";
     };
 
     outputs = ["out" "doc"];
