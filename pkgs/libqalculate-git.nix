@@ -3,12 +3,12 @@
   fetchFromGitHub,
 }:
 libqalculate.overrideAttrs {
-  version = "2024-10-19";
+  version = "2024-10-21";
 
   src = fetchFromGitHub {
     owner = "Qalculate";
     repo = "libqalculate";
-    rev = "e74ef3b6227fd2d7836796c819fa47106cf9bccc";
-    hash = "sha256-9mKRecFrs0fs9cw8L4tX5q+fkHn4qd9ic95ga+EMhw4=";
+    rev = "52037dd0613053b44c7178710e35d864dc84b8c8";
+    hash = "sha256-SVbPXJEbrXBS6jQqJeAI380ZViKKuUDhUP98BtgzQSQ=";
   };
 }
