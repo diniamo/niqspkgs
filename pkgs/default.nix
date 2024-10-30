@@ -27,6 +27,7 @@
       sway-unwrapped-git = mkPackage ./sway-unwrapped-git;
       fish-git = mkPackage ./fish-git.nix;
       libqalculate-git = mkPackage ./libqalculate-git.nix;
+      jellyfin-intro-skipper = mkPackage ./jellyfin-intro-skipper.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
