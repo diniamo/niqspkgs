@@ -4,17 +4,17 @@
 }:
 alacritty.overrideAttrs (old: rec {
   pname = "alacritty-sixel";
-  version = "2024-07-13";
+  version = "2024-10-24";
 
   src = fetchFromGitHub {
     owner = "ayosec";
     repo = "alacritty";
-    rev = "6c4910fd20c7bab08b3bcee00eed4b5e4b37ef08";
-    hash = "sha256-84rdjQzWNupN5dJsK6Txfl+EARXmkMIQ4TyfjIP1hTE=";
+    rev = "ecf278007a5fe024fe624c7dea4664239d81f44b";
+    hash = "sha256-7ujUi8QXzJdy8WpSXS8BYtyvWzlwEfYCg7/WdKF44bs=";
   };
 
   cargoDeps = old.cargoDeps.overrideAttrs {
     inherit src;
-    outputHash = "sha256-F9NiVbTIVOWUXnHtIUvxlZ5zvGtgz/AAyAhyS4w9f9I=";
+    outputHash = "sha256-iq6RNws725/bGgLGIcusJuh9AIiSZ6uXTZkLkYk8RG8=";
   };
 })
