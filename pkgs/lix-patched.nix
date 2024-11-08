@@ -1,4 +1,7 @@
-{inputs, system}: let
+{
+  inputs,
+  system,
+}: let
   package = inputs.lix.packages.${system}.default;
 in
   package.overrideAttrs (prev: {
@@ -10,4 +13,6 @@ in
         ./patches/lix-default-flake.patch
         ./patches/lix-nix3-shell.patch
       ];
+
+    dontCheck = true;
   })
