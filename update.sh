@@ -1,7 +1,7 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -p dash nix-prefetch jaq alejandra curl git -i dash
 
-set -ex
+set -e
 
 root="$(dirname "$0")"
 
