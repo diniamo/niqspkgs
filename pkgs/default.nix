@@ -26,7 +26,6 @@
       coreutils-full-patched = mkPackage ./coreutils-full-patched.nix;
       sway-unwrapped-git = mkPackage ./sway-unwrapped-git;
       fish-git = mkPackage ./fish-git.nix;
-      libqalculate-git = mkPackage ./libqalculate-git.nix;
       jellyfin-intro-skipper = mkPackage ./jellyfin-intro-skipper.nix;
 
       # mpvScripts
