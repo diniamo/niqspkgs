@@ -20,6 +20,6 @@
 
   cargoDeps = prev.cargoDeps.overrideAttrs {
     inherit src;
-    outputHash = "sha256-1Yu6C96AJRqwMgzIght9DnteO5WKzMFQfgil0lTWuiI=";
+    outputHash = "sha256-HfPzoAai6wK5IqNQY7yFVXatMcia9z0I84QNmNzHRoc=";
   };
 })
