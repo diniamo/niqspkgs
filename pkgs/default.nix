@@ -27,6 +27,7 @@
       sway-unwrapped-git = mkPackage ./sway-unwrapped-git;
       fish-git = mkPackage ./fish-git.nix;
       jellyfin-intro-skipper = mkPackage ./jellyfin-intro-skipper.nix;
+      file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
