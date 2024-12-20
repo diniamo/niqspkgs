@@ -28,6 +28,7 @@
       fish-git = mkPackage ./fish-git.nix;
       jellyfin-intro-skipper = mkPackage ./jellyfin-intro-skipper.nix;
       file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
+      git-clean = mkPackage ./git-clean.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
