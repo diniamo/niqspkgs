@@ -39,6 +39,7 @@
       neozoom-lua = mkVimPlugin ./vimPlugins/neozoom-lua.nix;
       bufresize-nvim = mkVimPlugin ./vimPlugins/bufresize-nvim.nix;
       fastaction-nvim = mkVimPlugin ./vimPlugins/fastaction-nvim.nix;
+      filt-nvim = mkVimPlugin ./vimPlugins/filt-nvim.nix;
     };
   in {
     # garnix doesn't support legacyPackages
