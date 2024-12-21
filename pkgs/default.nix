@@ -26,6 +26,7 @@
       jellyfin-intro-skipper = mkPackage ./jellyfin-intro-skipper.nix;
       file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
       git-clean = mkPackage ./git-clean.nix;
+      direnv-patched = mkPackage ./direnv-patched.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
