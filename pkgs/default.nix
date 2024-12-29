@@ -10,7 +10,6 @@
     mkMpvScript = path: pkgs.mpvScripts.callPackage path {};
 
     packages = {
-      bencode-pretty = mkPackage ./bencode-pretty.nix;
       starship-patched = mkPackage ./starship-patched.nix;
       alacritty-sixel = mkPackage ./alacritty-sixel.nix;
       swayimg-git = mkPackage ./swayimg-git.nix;
