@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.set-matrix.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - run: sudo apt-get -y install jq
+
+      - id: set-matrix
+        run: |
+          set -Eeu
+          packages="$(nix flake show --json | jq --compact-output '.packages | to_entries | map(.key as $system | .value | to_entries | map("packages.\($system).\(.key)")) | flatten')"
+          echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: packages
+    strategy:
+      matrix:
+        package: ${{ fromJSON(needs.packages.outputs.packages) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - run: nix build --print-build-logs .#${{ matrix.package }}
+      - uses: cachix/cachix-action@v15
+        with:
+          name: niqspkgs
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}

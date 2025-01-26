@@ -29,7 +29,7 @@
       skip-to-silence = mkMpvScript ./mpvScripts/skip-to-silence.nix;
     };
   in {
-    # garnix doesn't support legacyPackages
+    # legacyPackages complicates things a lot, there is no point
     inherit packages;
   };
 }
