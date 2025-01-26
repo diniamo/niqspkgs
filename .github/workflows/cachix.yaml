@@ -10,13 +10,12 @@ jobs:
     outputs:
       packages: ${{ steps.get-packages.outputs.packages }}
     steps:
-      - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
 
       - id: get-packages
         run: |
           set -Eeu
-          packages="$(nix flake show --json | jq --compact-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)")')"
+          packages="$(nix flake show --json github:diniamo/niqspkgs/${{ github.ref }} | jq --compact-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)")')"
           echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
 
   build:
