@@ -1,4 +1,4 @@
-name: Build
+name: Build to Cachix
 
 on:
   push:
@@ -13,7 +13,8 @@ jobs:
       - uses: actions/checkout@v4 
       - uses: DeterminateSystems/nix-installer-action@main
 
-      - id: get-packages
+      - name: Get packages to build
+        id: get-packages
         run: |
           set -Eeu
 
