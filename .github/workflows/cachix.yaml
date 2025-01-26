@@ -10,12 +10,19 @@ jobs:
     outputs:
       packages: ${{ steps.get-packages.outputs.packages }}
     steps:
+      - uses: actions/checkout@v4 
       - uses: DeterminateSystems/nix-installer-action@main
 
       - id: get-packages
         run: |
           set -Eeu
-          packages="$(nix flake show --json github:diniamo/niqspkgs/${{ github.ref }} | jq --compact-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)")')"
+
+          packages='[]'
+          while read -r package; do
+            path="$(nix eval --raw ".#$package")"
+            nix path-info --store https://niqspkgs.cachix.org "$path" || packages="$(echo -n "$packages" | jq --arg package "$package" --compact-output '. + [$package]')"
+          done < <(nix flake show --json | jq --raw-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)") | .[]')
+
           echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
 
   build:
@@ -35,4 +42,4 @@ jobs:
           name: niqspkgs
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - run: nix build --print-build-logs github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}
+      - run: nix build --print-build-logs "github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}"
