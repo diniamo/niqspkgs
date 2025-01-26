@@ -30,9 +30,9 @@ jobs:
     steps:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - run: nix build --print-build-logs github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}
       - uses: cachix/cachix-action@v15
         with:
           name: niqspkgs
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - run: nix build --print-build-logs github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}
