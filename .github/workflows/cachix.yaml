@@ -8,16 +8,15 @@ jobs:
   packages:
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.set-matrix.outputs.packages }}
+      packages: ${{ steps.get-packages.outputs.packages }}
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
-      - run: sudo apt-get -y install jq
 
-      - id: set-matrix
+      - id: get-packages
         run: |
           set -Eeu
-          packages="$(nix flake show --json | jq --compact-output '.packages | to_entries | map(.key as $system | .value | to_entries | map("packages.\($system).\(.key)")) | flatten')"
+          packages="$(nix flake show --json | jq --compact-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)")')"
           echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
 
   build:
@@ -30,11 +29,10 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - run: nix build --print-build-logs .#${{ matrix.package }}
+      - run: nix build --print-build-logs github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}
       - uses: cachix/cachix-action@v15
         with:
           name: niqspkgs
