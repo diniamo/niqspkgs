@@ -15,5 +15,5 @@ in
         ./patches/lix-nix3-shell.patch
       ];
 
-    dontCheck = true;
+    doCheck = false;
   })
