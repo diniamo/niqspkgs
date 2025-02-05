@@ -22,6 +22,7 @@
       file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
       git-clean = mkPackage ./git-clean.nix;
       direnv-patched = mkPackage ./direnv-patched.nix;
+      odin-patched = mkPackage ./odin-patched.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
