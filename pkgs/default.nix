@@ -23,6 +23,7 @@
       git-clean = mkPackage ./git-clean.nix;
       direnv-patched = mkPackage ./direnv-patched.nix;
       odin-patched = mkPackage ./odin-patched.nix;
+      xdccget = mkPackage ./xdccget.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
