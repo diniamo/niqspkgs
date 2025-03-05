@@ -10,7 +10,6 @@ in
     patches =
       (prev.patches or [])
       ++ [
-        ./patches/lix-fix-nixconfig.patch
         ./patches/lix-default-flake.patch
         ./patches/lix-nix3-shell.patch
       ];

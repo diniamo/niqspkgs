@@ -47,11 +47,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1731141898,
-        "narHash": "sha256-oXkPKPzxWpvgyP9tt5+oxZXBNueqQXG7HvFMh+S+pzk=",
+        "lastModified": 1741189331,
+        "narHash": "sha256-dViaxbbDAQBmnDbOAjBgMGF8htJMUNosnfDmsxuDEoM=",
         "owner": "lix-project",
         "repo": "lix",
-        "rev": "d0e096981025a43cfff02001110da2139561c729",
+        "rev": "0bb0f43aae2d370a5f905ffc7803db7bf8b29195",
         "type": "github"
       },
       "original": {
@@ -111,11 +111,11 @@
     "pre-commit-hooks": {
       "flake": false,
       "locked": {
-        "lastModified": 1726745158,
-        "narHash": "sha256-D5AegvGoEjt4rkKedmxlSEmC+nNLMBPWFxvmYnVLhjk=",
+        "lastModified": 1733318908,
+        "narHash": "sha256-SVQVsbafSM1dJ4fpgyBqLZ+Lft+jcQuMtEL3lQWx2Sk=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "4e743a6920eab45e8ba0fbe49dc459f1423a4b74",
+        "rev": "6f4e2a2112050951a314d2733a994fbab94864c6",
         "type": "github"
       },
       "original": {

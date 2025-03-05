@@ -1,8 +1,8 @@
-diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
-index 711cf1b07..1c9de5930 100644
---- a/src/libcmd/installables.cc
-+++ b/src/libcmd/installables.cc
-@@ -37,6 +37,23 @@ void completeFlakeInputPath(
+diff --git a/lix/libcmd/installables.cc b/lix/libcmd/installables.cc
+index 6f595b3f0..41718239d 100644
+--- a/lix/libcmd/installables.cc
++++ b/lix/libcmd/installables.cc
+@@ -38,6 +38,23 @@ void completeFlakeInputPath(
      }
  }
  
@@ -26,16 +26,17 @@ index 711cf1b07..1c9de5930 100644
  MixFlakeOptions::MixFlakeOptions()
  {
      auto category = "Common flake-related options";
-@@ -276,20 +293,23 @@ void completeFlakeRefWithFragment(
+@@ -281,20 +298,24 @@ void completeFlakeRefWithFragment(
      /* Look for flake output attributes that match the
         prefix. */
      try {
 +        bool isAttrPath = std::regex_match(prefix.begin(), prefix.end(), attrPathRegex);
          auto hash = prefix.find('#');
          if (hash == std::string::npos) {
-             completeFlakeRef(completions, evalState->store, prefix);
+             completeFlakeRef(evalState.aio, completions, evaluator->store, prefix);
 -        } else {
 +        }
++        
 +        if (isAttrPath || hash != std::string::npos) {
              completions.setType(AddCompletions::Type::Attrs);
  
@@ -52,14 +53,15 @@ index 711cf1b07..1c9de5930 100644
 +            // FIXME: do tilde expansion.
 +            auto flakeRef = parseFlakeRef(flakeRefS, isAttrPath ? std::optional<std::string>{} : absPath("."));
  
-             auto evalCache = openEvalCache(*evalState,
-                 std::make_shared<flake::LockedFlake>(lockFlake(*evalState, flakeRef, lockFlags)));
-@@ -323,7 +343,11 @@ void completeFlakeRefWithFragment(
-                         auto attrPath2 = (*attr)->getAttrPath(attr2);
+             auto evalCache = openEvalCache(
+                 *evaluator,
+@@ -330,7 +351,12 @@ void completeFlakeRefWithFragment(
+                         auto attrPath2 = (*attr)->getAttrPath(evalState, attr2s);
                          /* Strip the attrpath prefix. */
                          attrPath2.erase(attrPath2.begin(), attrPath2.begin() + attrPathPrefix.size());
--                        completions.add(flakeRefS + "#" + prefixRoot + concatStringsSep(".", evalState->symbols.resolve(attrPath2)));
-+                        std::string resolvedAttrPath2 = prefixRoot + concatStringsSep(".", evalState->symbols.resolve(attrPath2));
+-                        completions.add(flakeRefS + "#" + prefixRoot + concatStringsSep(".", attrPath2));
++                        
++                        std::string resolvedAttrPath2 = prefixRoot + concatStringsSep(".", attrPath2);
 +                        if (isAttrPath)
 +                            completions.add(resolvedAttrPath2);
 +                        else
@@ -67,7 +69,7 @@ index 711cf1b07..1c9de5930 100644
                      }
                  }
              }
-@@ -360,7 +384,7 @@ void completeFlakeRef(AddCompletions & completions, ref<Store> store, std::strin
+@@ -369,7 +395,7 @@ void completeFlakeRef(
              if (!prefix.starts_with("flake:") && from.starts_with("flake:")) {
                  std::string from2(from, 6);
                  if (from2.starts_with(prefix))
@@ -76,7 +78,7 @@ index 711cf1b07..1c9de5930 100644
              } else {
                  if (from.starts_with(prefix))
                      completions.add(from);
-@@ -482,7 +506,13 @@ Installables SourceExprCommand::parseInstallables(
+@@ -494,7 +520,13 @@ Installables SourceExprCommand::parseInstallables(
              }
  
              try {
@@ -90,12 +92,12 @@ index 711cf1b07..1c9de5930 100644
 +
                  result.push_back(make_ref<InstallableFlake>(
                          this,
-                         getEvalState(),
-diff --git a/src/libcmd/installables.hh b/src/libcmd/installables.hh
-index 95e8841ca..22aba5ea2 100644
---- a/src/libcmd/installables.hh
-+++ b/src/libcmd/installables.hh
-@@ -12,6 +12,17 @@
+                         getEvaluator(),
+diff --git a/lix/libcmd/installables.hh b/lix/libcmd/installables.hh
+index 423ea33d8..1c95e422c 100644
+--- a/lix/libcmd/installables.hh
++++ b/lix/libcmd/installables.hh
+@@ -13,6 +13,17 @@
  
  namespace nix {
  
@@ -113,10 +115,10 @@ index 95e8841ca..22aba5ea2 100644
  struct DrvInfo;
  
  enum class Realise {
-diff --git a/src/nix/search.cc b/src/nix/search.cc
-index 9f6b7a24e..130fa879a 100644
---- a/src/nix/search.cc
-+++ b/src/nix/search.cc
+diff --git a/lix/nix/search.cc b/lix/nix/search.cc
+index 1c84692f7..11f57aef8 100644
+--- a/lix/nix/search.cc
++++ b/lix/nix/search.cc
 @@ -23,8 +23,9 @@ std::string wrap(std::string prefix, std::string s)
      return concatStrings(prefix, s, ANSI_NORMAL);
  }
@@ -152,7 +154,7 @@ index 9f6b7a24e..130fa879a 100644
      }
  
      std::string description() override
-@@ -62,16 +80,20 @@ struct CmdSearch : InstallableCommand, MixJSON
+@@ -62,16 +80,23 @@ struct CmdSearch : InstallableCommand, MixJSON
          };
      }
  
@@ -164,7 +166,10 @@ index 9f6b7a24e..130fa879a 100644
 +            throw UsageError("nothing to search from, set 'default-flake' option or specify one of '--installable', '--file', '--expr'");
 +        }
 +
-+        auto const installableValue = InstallableValue::require(parseInstallable(store, (file || expr) ? "" : _installable));
++        auto evaluator = getEvaluator();
++        auto state = evaluator->begin(aio());
++
++        auto const installableValue = InstallableValue::require(parseInstallable(*state, store, (file || expr) ? "" : _installable));
  
          settings.readOnlyMode = true;
          evalSettings.enableImportFromDerivation.setDefault(false);
@@ -176,8 +181,18 @@ index 9f6b7a24e..130fa879a 100644
  
          std::vector<std::regex> regexes;
          std::vector<std::regex> excludeRegexes;
+@@ -84,9 +109,6 @@ struct CmdSearch : InstallableCommand, MixJSON
+         for (auto & re : excludeRes)
+             excludeRegexes.emplace_back(re, std::regex::extended | std::regex::icase);
+ 
+-        auto evaluator = getEvaluator();
+-        auto state = evaluator->begin(aio());
+-
+         std::optional<nlohmann::json> jsonOut;
+         if (json) jsonOut = json::object();
+ 
 diff --git a/tests/functional/flakes/flakes.sh b/tests/functional/flakes/flakes.sh
-index 75cc329e5..a0b76012c 100644
+index 5f102e183..e79517d39 100644
 --- a/tests/functional/flakes/flakes.sh
 +++ b/tests/functional/flakes/flakes.sh
 @@ -116,7 +116,7 @@ nix build -o $TEST_ROOT/result flake1#foo

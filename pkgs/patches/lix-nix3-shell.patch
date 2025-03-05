@@ -1,8 +1,8 @@
-diff --git a/src/nix/run.cc b/src/nix/run.cc
-index 824201fdf..d6304f3c1 100644
---- a/src/nix/run.cc
-+++ b/src/nix/run.cc
-@@ -135,6 +135,7 @@ struct CmdShell : InstallablesCommand, MixEnvironment
+diff --git a/lix/nix/run.cc b/lix/nix/run.cc
+index dcd81037b..8487295c1 100644
+--- a/lix/nix/run.cc
++++ b/lix/nix/run.cc
+@@ -149,6 +149,7 @@ struct CmdShell : InstallablesCommand, MixEnvironment
          unixPath.insert(unixPath.begin(), pathAdditions.begin(), pathAdditions.end());
          auto unixPathString = concatStringsSep(":", unixPath);
          setenv("PATH", unixPathString.c_str(), 1);
