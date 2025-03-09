@@ -40,18 +40,16 @@ def main [
 
   message "Building NixOS configuration"
 
-  let store_path_file = mktemp --tmpdir-path /tmp
-  (
+  let store_path = (
     nix build
       --log-format internal-json --verbose
       --no-link --print-out-paths
       $"($profile_data.flake)#nixosConfigurations.($profile_data.hostname).config.system.build.toplevel"
-    o> $store_path_file
-    e>| nom --json
+    | tee --stderr { nom --json }
+    | complete
+    | get stdout
+    | str trim --char "\n" --right
   )
-  # The builtin open command adds a newline for some reason
-  # Also, it should be possible to do this without a temporary file, but I couldn't figure out how to store stdout in a variable while piping stderr.
-  let store_path = cat $store_path_file
 
   let remote = $profile_data.remote?
   if $remote == null {
@@ -61,9 +59,10 @@ def main [
     sudo $"($store_path)/bin/switch-to-configuration" switch
   } else {
     let password = input --suppress-output $"\(($remote)\) Password: "
+    print --no-newline "\n"
     
-    let script_path = ^mktemp --dry-run
-    $"#!/bin/sh\necho -n '($password)'" | save $script_path
+    let script_path = mktemp --tmpdir-path ($env.TMPDIR? | default "/tmp")
+    $"#!/bin/sh\necho -n '($password)'" > $script_path
     chmod +x $script_path
 
     do {
