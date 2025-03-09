@@ -24,6 +24,7 @@
       direnv-patched = mkPackage ./direnv-patched.nix;
       odin-patched = mkPackage ./odin-patched.nix;
       xdccget = mkPackage ./xdccget.nix;
+      rebuild = mkPackage ./rebuild;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
