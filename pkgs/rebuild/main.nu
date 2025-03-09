@@ -74,7 +74,7 @@ def main [
       $env.SSH_ASKPASS_REQUIRE = "force"
 
       message $"Copying configuration to ($remote)"
-      nix copy --to $"ssh-ng://($remote)" $store_path
+      nix copy --to $"ssh-ng://($remote)" --no-check-sigs $store_path
       message $"Activating configuration on ($remote)"
       $password | ssh $remote $"sudo --prompt='' --stdin ($store_path)/bin/switch-to-configuration switch"
     }
