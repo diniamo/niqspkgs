@@ -30,7 +30,8 @@ stdenvNoCC.mkDerivation {
 
   postFixup = ''
     wrapProgram $out/bin/rebuild \
-      --prefix PATH : ${lib.makeBinPath [coreutils nix nix-output-monitor nvd openssh]}
+      --prefix PATH : ${lib.makeBinPath [coreutils nix-output-monitor nvd openssh]} \
+      --suffix PATH : ${nix}/bin
   '';
 
   meta = {
