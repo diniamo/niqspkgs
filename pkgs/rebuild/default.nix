@@ -5,13 +5,12 @@
   lib,
   coreutils,
   nix-output-monitor,
-  nix,
   nvd,
   openssh
 }:
 stdenvNoCC.mkDerivation {
   pname = "rebuild";
-  version = "0.1.2";
+  version = "0.1.3";
 
   src = ./main.nu;
   dontUnpack = true;
@@ -30,8 +29,7 @@ stdenvNoCC.mkDerivation {
 
   postFixup = ''
     wrapProgram $out/bin/rebuild \
-      --prefix PATH : ${lib.makeBinPath [coreutils nix-output-monitor nvd openssh]} \
-      --suffix PATH : ${nix}/bin
+      --prefix PATH : ${lib.makeBinPath [coreutils nix-output-monitor nvd openssh]}
   '';
 
   meta = {
