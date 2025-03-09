@@ -22,18 +22,22 @@ def main [
 
   let cache = if ($cache_path | path exists) { open $cache_path } else { {} }
 
-  let resolved_profile = $profile | default $cache.default?
+  mut update_default = false
+  let resolved_profile = if $profile != null {
+    if $save_default and $cache.default != $profile { $update_default = true; }
+    $profile
+  } else { $cache.default? }
   if $resolved_profile == null { missing_error "profile" }
-  
+
+  mut update_profile = false
   mut profile_data = $cache | get --ignore-errors $resolved_profile | default {}
+                            | if $flake != null and $in.flake != $flake { $update_profile = true; $in | upsert "flake" $flake } else { $in }
+                            | if $hostname != null and $in.hostname != $hostname { $update_profile = true; $in | upsert "hostname" $hostname } else { $in }
+                            | if $remote != null and $in.remote != $remote { $update_profile = true; $in | upsert "remote" $remote } else { $in }
 
-  if $flake != null { $profile_data.flake = $flake }
-  if $hostname != null { $profile_data.hostname = $hostname }
-  if $remote != null { $profile_data.remote = $remote }
-
-  $cache | upsert "default" $resolved_profile
-         | upsert $resolved_profile $profile_data
-         | save --force $cache_path
+  $cache | if $update_default { upsert "default" $resolved_profile } else { $in }
+         | if $update_profile { upsert $resolved_profile $profile_data } else { $in }
+         | if $update_default or $update_profile { save --force $cache_path }
 
   if not ("flake" in $profile_data) { missing_error "flake" }
   if not ("hostname" in $profile_data) { missing_error "hostname" }
