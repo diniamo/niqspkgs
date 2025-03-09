@@ -66,7 +66,7 @@ def main [
     print --no-newline "\n"
     
     let script_path = mktemp --tmpdir-path ($env.TMPDIR? | default "/tmp")
-    $"#!/bin/sh\necho -n '($password)'" > $script_path
+    $"#!/bin/sh\nprintf '%s' '($password)'" > $script_path
     chmod +x $script_path
 
     do {
