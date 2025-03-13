@@ -54,13 +54,14 @@ def main [
     | get stdout
     | str trim --char "\n" --right
   )
+  let activation_command = $"nix-env --profile /nix/var/nix/profiles/system --set ($store_path) && ($store_path)/bin/switch-to-configuration switch"
 
   let remote = $profile_data.remote?
   if $remote == null {
     message "Comparing changes"
     nvd diff /run/current-system $store_path
     message "Activating configuration"
-    sudo $"($store_path)/bin/switch-to-configuration" switch
+    sudo -- /bin/sh -c $activation_command
   } else {
     let password = input --suppress-output $"\(($remote)\) Password: "
     print --no-newline "\n"
@@ -76,7 +77,7 @@ def main [
       message $"Copying configuration to ($remote)"
       nix copy --to $"ssh-ng://($remote)" --no-check-sigs $store_path
       message $"Activating configuration on ($remote)"
-      $password | ssh $remote $"sudo --prompt='' --stdin ($store_path)/bin/switch-to-configuration switch"
+      $password | ssh $remote $"sudo --prompt='' --stdin -- /bin/sh -c '($activation_command)'"
     }
 
     rm $script_path
