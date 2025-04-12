@@ -24,7 +24,6 @@
       direnv-patched = mkPackage ./direnv-patched.nix;
       odin-patched = mkPackage ./odin-patched.nix;
       xdccget = mkPackage ./xdccget.nix;
-      rebuild = mkPackage ./rebuild;
       my-cookies = mkPackage ./my-cookies.nix;
 
       # mpvScripts
