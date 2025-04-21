@@ -46,6 +46,7 @@ in
       mkdir -p $out/share/vendor/raylib
       cp -r vendor/raylib/{rlgl,*.odin} $out/share/vendor/raylib
 
+      cp -r vendor/vulkan $out/share/vendor
       cp -r vendor/sdl3 $out/share/vendor
 
       # make -C "$out/share/vendor/cgltf/src/"
