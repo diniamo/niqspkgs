@@ -32,7 +32,11 @@ in
       which
     ];
 
-    postPatch = "patchShebangs build_odin.sh";
+    postPatch = ''
+      patchShebangs build_odin.sh
+
+      rm -r vendor/raylib/{linux,macos,macos-arm64,wasm,windows}
+    '';
 
     installPhase = ''
       runHook preInstall
@@ -41,13 +45,7 @@ in
       cp odin $out/bin/odin
 
       mkdir -p $out/share
-      cp -r {base,core,shared} $out/share
-
-      mkdir -p $out/share/vendor/raylib
-      cp -r vendor/raylib/{rlgl,*.odin} $out/share/vendor/raylib
-
-      cp -r vendor/vulkan $out/share/vendor
-      cp -r vendor/sdl3 $out/share/vendor
+      cp -r {base,core,shared,vendor} $out/share
 
       # make -C "$out/share/vendor/cgltf/src/"
       # make -C "$out/share/vendor/stb/src/"
