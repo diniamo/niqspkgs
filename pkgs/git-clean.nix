@@ -4,7 +4,7 @@
   makeBinaryWrapper,
   git,
 }:
-rustPlatform.buildRustPackage{
+rustPlatform.buildRustPackage {
   pname = "git-clean";
   version = "0.8.0";
 
@@ -15,10 +15,11 @@ rustPlatform.buildRustPackage{
     hash = "sha256-mhsmwvP2l3UVauLOqPHgGUo6rhuBNZsPah9oeX6oTxE=";
   };
 
-  cargoHash = "sha256-7ePRJFYjyzjR8TUL1yMMhqI3z76Rw+5cuX6NpyrdidY=";
-
-  doCheck = false;
-
   nativeBuildInputs = [makeBinaryWrapper];
-  postFixup = "wrapProgram $out/bin/git-clean --prefix PATH : ${git}/bin";
+  cargoHash = "sha256-/SrAPsXufshZsF+HBGzBbgQOwWv8o7UHtZ5I3PdEWms=";
+
+  postPatch = ''
+    find . -type f -name '*.rs' -exec substituteInPlace {} --replace-quiet '"git"' '"${git}/bin/git"' \;
+  '';
+  doCheck = false;
 }
