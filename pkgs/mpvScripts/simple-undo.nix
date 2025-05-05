@@ -2,16 +2,16 @@
   fetchFromGitHub,
   buildLua,
 }:
-buildLua rec {
+buildLua {
   pname = "SimpleUndo";
-  version = "25-09-2023";
+  version = "2023-09-25";
 
   src = fetchFromGitHub {
-    owner = "Eisa01";
+    owner = "Eisa0";
     repo = "mpv-scripts";
-    rev = version;
+    tag = "25-09-2023";
     hash = "sha256-tChANE37jKX2IMF3TC1QIBeDqZeCJ7Cf7LxKFXeS2dg=";
   };
 
-  scriptPath = "scripts/${pname}.lua";
+  scriptPath = "scripts/SimpleUndo.lua";
 }
