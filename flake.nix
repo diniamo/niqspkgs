@@ -14,6 +14,13 @@
       url = "github:lix-project/lix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rebuild = {
+      url = "github:diniamo/rebuild";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
   };
 
   outputs = inputs @ {

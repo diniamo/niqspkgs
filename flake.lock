@@ -124,11 +124,35 @@
         "type": "github"
       }
     },
+    "rebuild": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744541846,
+        "narHash": "sha256-Ul8WIW00B2PN7V7FVvOZ2NVJfPIVRUVijoDw7PN6kms=",
+        "owner": "diniamo",
+        "repo": "rebuild",
+        "rev": "2761b0a24a883127264734c48ccc79d29fc68ec3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "diniamo",
+        "repo": "rebuild",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
         "lix": "lix",
         "nixpkgs": "nixpkgs",
+        "rebuild": "rebuild",
         "systems": "systems"
       }
     },
