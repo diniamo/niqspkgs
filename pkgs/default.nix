@@ -20,7 +20,6 @@
       coreutils-full-patched = mkPackage ./coreutils-full-patched.nix;
       file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
       git-clean = mkPackage ./git-clean.nix;
-      direnv-patched = mkPackage ./direnv-patched.nix;
       odin-patched = mkPackage ./odin-patched.nix;
       xdccget = mkPackage ./xdccget.nix;
       my-cookies = mkPackage ./my-cookies.nix;

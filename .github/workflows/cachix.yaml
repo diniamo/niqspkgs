@@ -10,7 +10,7 @@ jobs:
     outputs:
       packages: ${{ steps.get-packages.outputs.packages }}
     steps:
-      - uses: actions/checkout@v4 
+      - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
 
       - name: Get packages to build
