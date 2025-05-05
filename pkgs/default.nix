@@ -15,10 +15,9 @@
       comma-patched = mkPackage ./comma-patched.nix;
       nom-patched = mkPackage ./nom-patched.nix;
       nh-patched = callPackage ./nh-patched.nix {inherit self;};
-      fish-patched = callPackage ./fish-patched.nix {fish = packages.fish-git;};
+      fish-patched = mkPackage ./fish-patched.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
       coreutils-full-patched = mkPackage ./coreutils-full-patched.nix;
-      fish-git = mkPackage ./fish-git.nix;
       file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
       git-clean = mkPackage ./git-clean.nix;
       direnv-patched = mkPackage ./direnv-patched.nix;
