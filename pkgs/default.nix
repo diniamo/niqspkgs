@@ -27,6 +27,7 @@
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
       skip-to-silence = mkMpvScript ./mpvScripts/skip-to-silence.nix;
+      m-x = mkMpvScript ./mpvScripts/m-x.nix;
     };
   in {
     # legacyPackages complicates things a lot, there is no point
