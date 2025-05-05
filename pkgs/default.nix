@@ -4,14 +4,15 @@
   ...
 }: {
   perSystem = {pkgs, ...}: let
-    inherit (pkgs) callPackage;
+    inherit (pkgs.lib) callPackageWith;
 
-    mkPackage = path: callPackage path {};
-    mkMpvScript = path: pkgs.mpvScripts.callPackage path {};
+    extraArguments = { inherit self inputs; };
+    mkPackage = path: callPackageWith (pkgs // extraArguments) path {};
+    mkMpvScript = path: callPackageWith (pkgs // pkgs.mpvScripts // extraArguments) path {};
 
     packages = {
       swayimg-git = mkPackage ./swayimg-git.nix;
-      lix-patched = callPackage ./lix-patched.nix {inherit inputs;};
+      lix-patched = mkPackage ./lix-patched.nix;
       comma-patched = mkPackage ./comma-patched.nix;
       nom-patched = mkPackage ./nom-patched.nix;
       fish-patched = mkPackage ./fish-patched.nix;
