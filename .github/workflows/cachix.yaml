@@ -21,7 +21,10 @@ jobs:
           packages='[]'
           while read -r package; do
             path="$(nix eval --raw ".#$package")"
-            nix path-info --store https://niqspkgs.cachix.org "$path" || packages="$(echo -n "$packages" | jq --arg package "$package" --compact-output '. + [$package]')"
+            if ! nix path-info --store https://niqspkgs.cachix.org "$path" 2>/dev/null; then
+              echo "Building $package"
+              packages="$(echo -n "$packages" | jq --arg package "$package" --compact-output '. + [$package]')"
+            fi
           done < <(nix flake show --json | jq --raw-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)") | .[]')
 
           echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
