@@ -14,7 +14,6 @@
       lix-patched = callPackage ./lix-patched.nix {inherit inputs;};
       comma-patched = mkPackage ./comma-patched.nix;
       nom-patched = mkPackage ./nom-patched.nix;
-      nh-patched = callPackage ./nh-patched.nix {inherit self;};
       fish-patched = mkPackage ./fish-patched.nix;
       bibata-hyprcursor = mkPackage ./bibata-hyprcursor;
       file-roller-gtk3 = mkPackage ./file-roller-gtk3.nix;
