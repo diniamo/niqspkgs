@@ -1,8 +1,8 @@
 diff --git a/lix/libcmd/installables.cc b/lix/libcmd/installables.cc
-index 6f595b3f0..41718239d 100644
+index 30ebcf050..60428713e 100644
 --- a/lix/libcmd/installables.cc
 +++ b/lix/libcmd/installables.cc
-@@ -38,6 +38,23 @@ void completeFlakeInputPath(
+@@ -36,6 +36,23 @@ void completeFlakeInputPath(
      }
  }
  
@@ -26,7 +26,7 @@ index 6f595b3f0..41718239d 100644
  MixFlakeOptions::MixFlakeOptions()
  {
      auto category = "Common flake-related options";
-@@ -281,20 +298,24 @@ void completeFlakeRefWithFragment(
+@@ -279,20 +296,24 @@ void completeFlakeRefWithFragment(
      /* Look for flake output attributes that match the
         prefix. */
      try {
@@ -55,7 +55,7 @@ index 6f595b3f0..41718239d 100644
  
              auto evalCache = openEvalCache(
                  *evaluator,
-@@ -330,7 +351,12 @@ void completeFlakeRefWithFragment(
+@@ -328,7 +349,12 @@ void completeFlakeRefWithFragment(
                          auto attrPath2 = (*attr)->getAttrPath(evalState, attr2s);
                          /* Strip the attrpath prefix. */
                          attrPath2.erase(attrPath2.begin(), attrPath2.begin() + attrPathPrefix.size());
@@ -69,7 +69,7 @@ index 6f595b3f0..41718239d 100644
                      }
                  }
              }
-@@ -369,7 +395,7 @@ void completeFlakeRef(
+@@ -367,7 +393,7 @@ void completeFlakeRef(
              if (!prefix.starts_with("flake:") && from.starts_with("flake:")) {
                  std::string from2(from, 6);
                  if (from2.starts_with(prefix))
@@ -94,10 +94,10 @@ index 6f595b3f0..41718239d 100644
                          this,
                          getEvaluator(),
 diff --git a/lix/libcmd/installables.hh b/lix/libcmd/installables.hh
-index 423ea33d8..1c95e422c 100644
+index 39e4f79a4..2f060c5ce 100644
 --- a/lix/libcmd/installables.hh
 +++ b/lix/libcmd/installables.hh
-@@ -13,6 +13,17 @@
+@@ -12,6 +12,17 @@
  
  namespace nix {
  
@@ -116,10 +116,10 @@ index 423ea33d8..1c95e422c 100644
  
  enum class Realise {
 diff --git a/lix/nix/search.cc b/lix/nix/search.cc
-index 1c84692f7..11f57aef8 100644
+index f76ba2638..aad36f75f 100644
 --- a/lix/nix/search.cc
 +++ b/lix/nix/search.cc
-@@ -23,8 +23,9 @@ std::string wrap(std::string prefix, std::string s)
+@@ -24,8 +24,9 @@ std::string wrap(std::string prefix, std::string s)
      return concatStrings(prefix, s, ANSI_NORMAL);
  }
  
@@ -130,7 +130,7 @@ index 1c84692f7..11f57aef8 100644
      std::vector<std::string> res;
      std::vector<std::string> excludeRes;
  
-@@ -40,6 +41,23 @@ struct CmdSearch : InstallableCommand, MixJSON
+@@ -41,6 +42,23 @@ struct CmdSearch : InstallableCommand, MixJSON
                  excludeRes.push_back(s);
              }},
          });
@@ -154,7 +154,7 @@ index 1c84692f7..11f57aef8 100644
      }
  
      std::string description() override
-@@ -62,16 +80,23 @@ struct CmdSearch : InstallableCommand, MixJSON
+@@ -63,16 +81,23 @@ struct CmdSearch : InstallableCommand, MixJSON
          };
      }
  
@@ -181,15 +181,15 @@ index 1c84692f7..11f57aef8 100644
  
          std::vector<std::regex> regexes;
          std::vector<std::regex> excludeRegexes;
-@@ -84,9 +109,6 @@ struct CmdSearch : InstallableCommand, MixJSON
+@@ -85,9 +110,6 @@ struct CmdSearch : InstallableCommand, MixJSON
          for (auto & re : excludeRes)
-             excludeRegexes.emplace_back(re, std::regex::extended | std::regex::icase);
+             excludeRegexes.emplace_back(nix::regex::parse(re, std::regex::extended | std::regex::icase));
  
 -        auto evaluator = getEvaluator();
 -        auto state = evaluator->begin(aio());
 -
-         std::optional<nlohmann::json> jsonOut;
-         if (json) jsonOut = json::object();
+         std::optional<JSON> jsonOut;
+         if (json) jsonOut = JSON::object();
  
 diff --git a/tests/functional/flakes/flakes.sh b/tests/functional/flakes/flakes.sh
 index 5f102e183..e79517d39 100644
