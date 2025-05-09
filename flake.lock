@@ -134,11 +134,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746701061,
-        "narHash": "sha256-BQnuHDl94Vy8oVMm+pdo+47sNfcVHEC9fSsbmVxgwQw=",
+        "lastModified": 1746774671,
+        "narHash": "sha256-btVUJvYuRFljM1OWtO69rX6M6QAPed5dwg1E1onEXE4=",
         "owner": "diniamo",
         "repo": "rebuild",
-        "rev": "fffa8dad8d9c5e9f3c84becf776e9654627e6a3b",
+        "rev": "fc2803f2fad3be5086eb36322e7d99028b92c84a",
         "type": "github"
       },
       "original": {
