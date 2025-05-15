@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  perSystem = {pkgs, ...}: let
+  perSystem = {pkgs, inputs', ...}: let
     inherit (pkgs.lib) callPackageWith;
 
     extraArguments = { inherit self inputs; };
@@ -11,6 +11,10 @@
     mkMpvScript = path: callPackageWith (pkgs // pkgs.mpvScripts // extraArguments) path {};
 
     packages = {
+      inherit (inputs'.curd.packages) curd;
+      inherit (inputs'.wayhibitor.packages) wayhibitor;
+      inherit (inputs'.superfreq.packages) superfreq;
+
       swayimg-git = mkPackage ./swayimg-git.nix;
       lix-patched = mkPackage ./lix-patched.nix;
       comma-patched = mkPackage ./comma-patched.nix;

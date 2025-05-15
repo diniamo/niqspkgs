@@ -21,6 +21,24 @@
         systems.follows = "systems";
       };
     };
+    curd = {
+      url = "github:Wraient/curd";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    wayhibitor = {
+      url = "github:diniamo/wayhibitor";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    superfreq = {
+      url = "github:NotAShelf/superfreq";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {

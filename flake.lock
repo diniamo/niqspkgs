@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "curd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744903352,
+        "narHash": "sha256-nxWkiFccqbFkvh4wemMUKyYqufNs3LT8DSL/yqfBQys=",
+        "owner": "Wraient",
+        "repo": "curd",
+        "rev": "4d9874c1c462be98d472240213c02408d67c93a0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Wraient",
+        "repo": "curd",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -149,11 +172,34 @@
     },
     "root": {
       "inputs": {
+        "curd": "curd",
         "flake-parts": "flake-parts",
         "lix": "lix",
         "nixpkgs": "nixpkgs",
         "rebuild": "rebuild",
-        "systems": "systems"
+        "superfreq": "superfreq",
+        "systems": "systems",
+        "wayhibitor": "wayhibitor"
+      }
+    },
+    "superfreq": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747341787,
+        "narHash": "sha256-p8fl95EW26T2xgZSmIWqjVXvHhRlqdUS/UI8ELNXHtc=",
+        "owner": "NotAShelf",
+        "repo": "superfreq",
+        "rev": "1546da382e1bf4844d409f43e02d2ebb18404515",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NotAShelf",
+        "repo": "superfreq",
+        "type": "github"
       }
     },
     "systems": {
@@ -168,6 +214,29 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "wayhibitor": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747340589,
+        "narHash": "sha256-ppRqiMzt8MnfUFiRJ9VBSegNLoWbqoZHRmgLIDXEUHU=",
+        "owner": "diniamo",
+        "repo": "wayhibitor",
+        "rev": "f0f8c4ccef53910a07776f210246098c2dbff267",
+        "type": "github"
+      },
+      "original": {
+        "owner": "diniamo",
+        "repo": "wayhibitor",
         "type": "github"
       }
     }
