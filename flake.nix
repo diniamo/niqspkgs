@@ -14,8 +14,8 @@
       url = "github:lix-project/lix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rebuild = {
-      url = "github:diniamo/rebuild";
+    swich = {
+      url = "github:diniamo/swich";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";

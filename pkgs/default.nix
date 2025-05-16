@@ -1,12 +1,8 @@
 {
-  self,
-  inputs,
-  ...
-}: {
-  perSystem = {pkgs, inputs', ...}: let
+  perSystem = {pkgs, inputs', self', ...}: let
     inherit (pkgs.lib) callPackageWith;
 
-    extraArguments = { inherit self inputs; };
+    extraArguments = { inherit inputs' self'; };
     mkPackage = path: callPackageWith (pkgs // extraArguments) path {};
     mkMpvScript = path: callPackageWith (pkgs // pkgs.mpvScripts // extraArguments) path {};
 
@@ -26,7 +22,7 @@
       odin-patched = mkPackage ./odin-patched.nix;
       xdccget = mkPackage ./xdccget.nix;
       my-cookies = mkPackage ./my-cookies.nix;
-      rebuild-patched = mkPackage ./rebuild-patched.nix;
+      swich-patched = mkPackage ./swich-patched.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;

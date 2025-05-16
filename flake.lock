@@ -147,37 +147,14 @@
         "type": "github"
       }
     },
-    "rebuild": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1747343636,
-        "narHash": "sha256-V81sBmTR1rt9qFI85SoVj22yBI7Q+Kd+7Wy744gENBw=",
-        "owner": "diniamo",
-        "repo": "rebuild",
-        "rev": "d52e53cdcaf3e6a98a08ee6ff4a9a0289dacc55a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "diniamo",
-        "repo": "rebuild",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "curd": "curd",
         "flake-parts": "flake-parts",
         "lix": "lix",
         "nixpkgs": "nixpkgs",
-        "rebuild": "rebuild",
         "superfreq": "superfreq",
+        "swich": "swich",
         "systems": "systems",
         "wayhibitor": "wayhibitor"
       }
@@ -199,6 +176,29 @@
       "original": {
         "owner": "NotAShelf",
         "repo": "superfreq",
+        "type": "github"
+      }
+    },
+    "swich": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747437281,
+        "narHash": "sha256-Af09js6LWBFJdh/nmFQXvzawEWRsP6HdtT1CdwZn7bQ=",
+        "owner": "diniamo",
+        "repo": "swich",
+        "rev": "e1dc704e5ac5f663ec8ffb19b713a50040a1abcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "diniamo",
+        "repo": "swich",
         "type": "github"
       }
     },

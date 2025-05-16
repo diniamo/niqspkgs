@@ -1,7 +1,4 @@
-{
-  inputs,
-  system,
-}: inputs.lix.packages.${system}.default.overrideAttrs (prev: {
+{inputs'}: inputs'.lix.packages.default.overrideAttrs (prev: {
   pname = "lix-patched";
 
   patches = (prev.patches or []) ++ [./patches/lix-default-flake.patch];
