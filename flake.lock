@@ -189,11 +189,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747437281,
-        "narHash": "sha256-Af09js6LWBFJdh/nmFQXvzawEWRsP6HdtT1CdwZn7bQ=",
+        "lastModified": 1747440068,
+        "narHash": "sha256-GAH5KzH975AI3foIu0AxfTIFx6H6yQvXZOeFY1GeTEc=",
         "owner": "diniamo",
         "repo": "swich",
-        "rev": "e1dc704e5ac5f663ec8ffb19b713a50040a1abcb",
+        "rev": "00aa268d87379f9883c0f563583768eebd79f36a",
         "type": "github"
       },
       "original": {
