@@ -22,7 +22,7 @@
       odin-patched = mkPackage ./odin-patched.nix;
       xdccget = mkPackage ./xdccget.nix;
       my-cookies = mkPackage ./my-cookies.nix;
-      swich-patched = mkPackage ./swich-patched.nix;
+      nq-patched = mkPackage ./nq-patched.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
