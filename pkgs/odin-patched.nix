@@ -8,8 +8,9 @@
     rev = "a2c0720fb046187bb00f5f3beeab4e9c284b18f0";
     hash = "sha256-T3CCey2ql2qI8TJVzpxp7cS1wXy2CCGRmvFSmt2GQos=";
   };
-  
-  patches = (prev.patches or []) ++ [
+
+  # The outdated patch fails the build. It's for Darwin anyway.
+  patches = [ # (prev.patches or []) ++ [
     ./patches/odin-system-raylib.patch
   ];
 
