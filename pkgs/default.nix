@@ -23,7 +23,7 @@
       xdccget = mkPackage ./xdccget.nix;
       my-cookies = mkPackage ./my-cookies.nix;
       nq-patched = mkPackage ./nq-patched.nix;
-      sway-unwrapped-git = mkPackage ./sway-unwrapped-git.nix;
+      sway-unwrapped-patched = mkPackage ./sway-unwrapped-patched.nix;
 
       # mpvScripts
       simple-undo = mkMpvScript ./mpvScripts/simple-undo.nix;
