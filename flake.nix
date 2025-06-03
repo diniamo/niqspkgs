@@ -37,6 +37,7 @@
           "superfreq"
           "flint"
           "wiremix"
+          "dsync"
         ];
         inherited = listToAttrs <| map (input: {
           name = input;
@@ -91,6 +92,13 @@
     wiremix = {
       url = "github:tsowell/wiremix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dsync = {
+      url = "github:diniamo/dsync";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
   };
 }

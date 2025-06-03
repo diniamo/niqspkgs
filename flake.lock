@@ -23,6 +23,29 @@
         "type": "github"
       }
     },
+    "dsync": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748959026,
+        "narHash": "sha256-qwKejZAI/sBoey9O0Hoo57F/LdXm8UOHMJO515Rt66k=",
+        "owner": "diniamo",
+        "repo": "dsync",
+        "rev": "845d5d5ab545f257dbd5bf784f18c57b86db5e77",
+        "type": "github"
+      },
+      "original": {
+        "owner": "diniamo",
+        "repo": "dsync",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -227,6 +250,7 @@
     "root": {
       "inputs": {
         "curd": "curd",
+        "dsync": "dsync",
         "flake-parts": "flake-parts",
         "flint": "flint",
         "lix": "lix",
