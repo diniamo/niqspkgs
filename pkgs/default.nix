@@ -10,6 +10,8 @@
       inherit (inputs'.curd.packages) curd;
       inherit (inputs'.wayhibitor.packages) wayhibitor;
       inherit (inputs'.superfreq.packages) superfreq;
+      inherit (inputs'.flint.packages) flint;
+      wiremix = inputs'.wiremix.packages.default;
 
       swayimg-git = mkPackage ./swayimg-git.nix;
       lix-patched = mkPackage ./lix-patched.nix;

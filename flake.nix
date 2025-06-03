@@ -39,6 +39,14 @@
       url = "github:NotAShelf/superfreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flint = {
+      url = "github:NotAShelf/flint";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    wiremix = {
+      url = "github:tsowell/wiremix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
