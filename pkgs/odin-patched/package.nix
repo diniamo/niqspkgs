@@ -11,7 +11,7 @@
 
   # The outdated patch fails the build. It's for Darwin anyway.
   patches = [ # (prev.patches or []) ++ [
-    ./patches/odin-system-raylib.patch
+    ./system-raylib.patch
   ];
 
   postPatch = prev.postPatch + ''

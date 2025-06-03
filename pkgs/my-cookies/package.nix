@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication {
     rev = "2fdd517da0b92792776a34567d2f3cda6f966eac";
     hash = "sha256-gdqG56kpbx5axsHR0nyxjfhpQAdhW9Y6FtWfjxBuVMQ=";
   };
-  patches = [./patches/my-cookies-librewolf.patch];
+  patches = [./librewolf.patch];
 
   build-system = [python3Packages.setuptools];
   dependencies = with python3Packages; [

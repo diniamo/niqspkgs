@@ -1,6 +1,51 @@
 {
   description = "A collection of my self-maintained nix derivations";
 
+  nixConfig = {
+    extra-substituters = ["https://niqspkgs.cachix.org"];
+    extra-trusted-public-keys = ["niqspkgs.cachix.org-1:3lcNxXkj8BLrK77NK9ZTjk0fxHuSZrr5sKE6Avjb6PI="];
+  };
+
+  outputs = inputs @ {
+    flake-parts,
+    systems,
+    ...
+  }: flake-parts.lib.mkFlake {inherit inputs;} {
+    systems = import systems;
+
+    perSystem = {pkgs, lib, inputs', self', ...}: {
+      formatter = pkgs.alejandra;
+      
+      packages = let
+        inherit (lib) packagesFromDirectoryRecursive callPackageWith;
+        inherit (builtins) listToAttrs;
+
+        extraArguments = { inherit inputs' self'; };
+        packages = packagesFromDirectoryRecursive {
+          callPackage = callPackageWith (pkgs // extraArguments);
+          directory = ./pkgs;
+        };
+
+        mpvScripts = packagesFromDirectoryRecursive {
+          callPackage = callPackageWith (pkgs // pkgs.mpvScripts // extraArguments);
+          directory = ./mpvScripts;
+        };
+
+        fromInputs = [
+          "curd"
+          "wayhibitor"
+          "superfreq"
+          "flint"
+          "wiremix"
+        ];
+        inherited = listToAttrs <| map (input: {
+          name = input;
+          value = inputs'.${input}.packages.default;
+        }) fromInputs;
+      in packages // mpvScripts // inherited;
+    };
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -47,24 +92,5 @@
       url = "github:tsowell/wiremix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs = inputs @ {
-    flake-parts,
-    systems,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = import systems;
-      imports = [./pkgs];
-
-      perSystem = {pkgs, ...}: {
-        formatter = pkgs.alejandra;
-      };
-    };
-
-  nixConfig = {
-    extra-substituters = ["https://niqspkgs.cachix.org"];
-    extra-trusted-public-keys = ["niqspkgs.cachix.org-1:3lcNxXkj8BLrK77NK9ZTjk0fxHuSZrr5sKE6Avjb6PI="];
   };
 }

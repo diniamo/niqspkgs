@@ -13,19 +13,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Get packages to build
+      - name: Find packages missing in the cache
         id: get-packages
         run: |
-          set -Eeu
+          set -euo pipefail
 
           packages='[]'
           while read -r package; do
-            path="$(nix eval --raw ".#$package")"
-            if ! nix path-info --store https://niqspkgs.cachix.org "$path" 2>/dev/null; then
+            path="$(nix eval --raw ".#$package" --extra-experimental-features pipe-operators &>/dev/null)"
+            if ! nix path-info --store https://niqspkgs.cachix.org "$path" &>/dev/null; then
               echo "Building $package"
               packages="$(echo -n "$packages" | jq --arg package "$package" --compact-output '. + [$package]')"
             fi
-          done < <(nix flake show --json | jq --raw-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)") | .[]')
+          done < <(nix flake show --json --extra-experimental-features pipe-operators 2>/dev/null | jq --raw-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)") | .[]')
 
           echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
 
@@ -45,4 +45,4 @@ jobs:
           name: niqspkgs
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - run: nix build --print-build-logs "github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}"
+      - run: nix build --print-build-logs "github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}" --extra-experimental-features pipe-operators

@@ -20,6 +20,6 @@
     hash = "sha256-Ba9Ed5urZ8ll52wdqMqBjCBBP2IplriOZ+0rW9vOzzk=";
   };
   patches = [
-    ./patches/sway-unwrapped-revert-idle-inhibit-no-invisible.patch
+    ./revert-idle-inhibit-no-invisible.patch
   ];
 }
