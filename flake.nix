@@ -34,7 +34,7 @@
         fromInputs = [
           "curd"
           "wayhibitor"
-          "superfreq"
+          "watt"
           "flint"
           "wiremix"
           "dsync"
@@ -82,8 +82,8 @@
         systems.follows = "systems";
       };
     };
-    superfreq = {
-      url = "github:NotAShelf/superfreq";
+    watt = {
+      url = "github:NotAShelf/watt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flint = {
