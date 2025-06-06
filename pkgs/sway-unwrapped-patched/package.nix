@@ -1,25 +1,23 @@
 {sway-unwrapped, wlroots, fetchFromGitLab, fetchFromGitHub}: (sway-unwrapped.override {
   wlroots = wlroots.overrideAttrs {
-    version = "0-unstable-a08acfc";
+    version = "0-unstable-afe427d";
     
     src = fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "wlroots";
       repo = "wlroots";
-      rev = "a08acfcee0261ae9b084c217dd70dd52eea2904a";
-      hash = "sha256-1KK25FnbYeC29IJLDCx1hDj/3cMBSTq36dQvPVrznF8=";
+      rev = "afe427d149e701fb244152e1b44ebaa34e3a4cb0";
+      hash = "sha256-O/jNW+MsdFfILaYgFYdsIYzuEyEEWiF4WUlHH98v3rQ=";
     };
   };
 }).overrideAttrs {
-  version = "0-unstable-7e7994d";
+  version = "0-unstable-6816b51";
   
   src = fetchFromGitHub {
     owner = "swaywm";
     repo = "sway";
-    rev = "7e7994dbb2a2c04f55b3c74eb61577c51e9a43ae";
-    hash = "sha256-Ba9Ed5urZ8ll52wdqMqBjCBBP2IplriOZ+0rW9vOzzk=";
+    rev = "6816b51c86846afc5eaa1dea2541410058347a6e";
+    hash = "sha256-URr3o5b6C+MQsfI25M2FAb2ybaRfJ6tSb+55Oaask4E=";
   };
-  patches = [
-    ./revert-idle-inhibit-no-invisible.patch
-  ];
+  patches = [ ./revert-idle-inhibit-no-invisible.patch ];
 }
