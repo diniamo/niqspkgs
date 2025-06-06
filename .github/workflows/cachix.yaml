@@ -20,7 +20,7 @@ jobs:
 
           packages='[]'
           while read -r package; do
-            path="$(nix eval --raw ".#$package" --extra-experimental-features pipe-operators &>/dev/null)"
+            path="$(nix eval --raw ".#$package" --extra-experimental-features pipe-operators 2>/dev/null)"
             if ! nix path-info --store https://niqspkgs.cachix.org "$path" &>/dev/null; then
               echo "Building $package"
               packages="$(echo -n "$packages" | jq --arg package "$package" --compact-output '. + [$package]')"
