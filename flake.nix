@@ -92,7 +92,10 @@
     };
     wiremix = {
       url = "github:tsowell/wiremix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
     dsync = {
       url = "github:diniamo/dsync";
