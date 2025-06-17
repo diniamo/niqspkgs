@@ -20,12 +20,12 @@ jobs:
 
           packages='[]'
           while read -r package; do
-            path="$(nix eval --raw ".#$package" --extra-experimental-features pipe-operators 2>/dev/null)"
+            path="$(nix eval --raw ".#$package" 2>/dev/null)"
             if ! nix path-info --store https://niqspkgs.cachix.org "$path" &>/dev/null; then
               echo "Building $package"
               packages="$(echo -n "$packages" | jq --arg package "$package" --compact-output '. + [$package]')"
             fi
-          done < <(nix flake show --json --extra-experimental-features pipe-operators 2>/dev/null | jq --raw-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)") | .[]')
+          done < <(nix flake show --json 2>/dev/null | jq --raw-output '.packages."x86_64-linux" | keys_unsorted | map("packages.x86_64-linux.\(.)") | .[]')
 
           echo -n "packages=$packages" >> "$GITHUB_OUTPUT"
 
@@ -45,4 +45,4 @@ jobs:
           name: niqspkgs
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - run: nix build --print-build-logs "github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}" --extra-experimental-features pipe-operators
+      - run: nix build --print-build-logs "github:diniamo/niqspkgs/${{ github.ref }}#${{ matrix.package }}"

@@ -39,10 +39,10 @@
           "wiremix"
           "dsync"
         ];
-        inherited = listToAttrs <| map (input: {
+        inherited = listToAttrs (map (input: {
           name = input;
           value = inputs'.${input}.packages.default;
-        }) fromInputs;
+        }) fromInputs);
       in packages // mpvScripts // inherited;
     };
   };
