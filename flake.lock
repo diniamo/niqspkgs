@@ -59,11 +59,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748959026,
-        "narHash": "sha256-qwKejZAI/sBoey9O0Hoo57F/LdXm8UOHMJO515Rt66k=",
+        "lastModified": 1750174504,
+        "narHash": "sha256-9Hg2xqet7nBLksqyjw2931QZ+Y9jzQqyG7kRUwqE68Y=",
         "owner": "diniamo",
         "repo": "dsync",
-        "rev": "845d5d5ab545f257dbd5bf784f18c57b86db5e77",
+        "rev": "afd24c686e998b63caa0bdd91cee6f8747b834c2",
         "type": "github"
       },
       "original": {
