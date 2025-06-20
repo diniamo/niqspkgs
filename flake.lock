@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "curd": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1744903352,
-        "narHash": "sha256-nxWkiFccqbFkvh4wemMUKyYqufNs3LT8DSL/yqfBQys=",
-        "owner": "Wraient",
-        "repo": "curd",
-        "rev": "4d9874c1c462be98d472240213c02408d67c93a0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Wraient",
-        "repo": "curd",
-        "type": "github"
-      }
-    },
     "dix": {
       "inputs": {
         "fenix": "fenix",
@@ -268,7 +245,6 @@
     },
     "root": {
       "inputs": {
-        "curd": "curd",
         "dsync": "dsync",
         "flake-parts": "flake-parts",
         "flint": "flint",
