@@ -32,7 +32,6 @@
         };
 
         fromInputs = [
-          "curd"
           "wayhibitor"
           "watt"
           "flint"
@@ -66,13 +65,6 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         flake-parts.follows = "flake-parts";
-      };
-    };
-    curd = {
-      url = "github:Wraient/curd";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
       };
     };
     wayhibitor = {
