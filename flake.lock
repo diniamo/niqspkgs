@@ -26,6 +26,33 @@
         "type": "github"
       }
     },
+    "dnix": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "git-hooks-nix": "git-hooks-nix",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-23-11": "nixpkgs-23-11",
+        "nixpkgs-regression": "nixpkgs-regression"
+      },
+      "locked": {
+        "lastModified": 1751031931,
+        "narHash": "sha256-YLC9xM1RAFow143Tahlw4Y1pZxYiNAs7c1KMMmb8NXQ=",
+        "owner": "diniamo",
+        "repo": "dnix",
+        "rev": "2cb467911c38ac9feacdd4f43d4f380645d49860",
+        "type": "github"
+      },
+      "original": {
+        "owner": "diniamo",
+        "ref": "custom",
+        "repo": "dnix",
+        "type": "github"
+      }
+    },
     "dsync": {
       "inputs": {
         "nixpkgs": [
@@ -128,44 +155,28 @@
         "type": "github"
       }
     },
-    "lix": {
+    "git-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "nix2container": "nix2container",
-        "nixpkgs": [
-          "nixpkgs"
+        "gitignore": [
+          "dnix"
         ],
-        "nixpkgs-regression": "nixpkgs-regression",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "nixpkgs": [
+          "dnix",
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1748588861,
-        "narHash": "sha256-bP9MHHCx/6Pi1TlO7Iq8X6AUoQHzyExQJNnSHSOqUUk=",
-        "owner": "lix-project",
-        "repo": "lix",
-        "rev": "3815dd5e64fc374fa4dcc5064470cd7a7d77aaf3",
-        "type": "github"
+        "lastModified": 1747372754,
+        "narHash": "sha256-2Y53NGIX2vxfie1rOW0Qb86vjRZ7ngizoo+bnXU9D9k=",
+        "rev": "80479b6ec16fefd9c1db3ea13aeb038c60530f46",
+        "revCount": 1026,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/cachix/git-hooks.nix/0.1.1026%2Brev-80479b6ec16fefd9c1db3ea13aeb038c60530f46/0196d79a-1b35-7b8e-a021-c894fb62163d/source.tar.gz"
       },
       "original": {
-        "owner": "lix-project",
-        "repo": "lix",
-        "type": "github"
-      }
-    },
-    "nix2container": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1724996935,
-        "narHash": "sha256-njRK9vvZ1JJsP8oV2OgkBrpJhgQezI03S7gzskCcHos=",
-        "owner": "nlewo",
-        "repo": "nix2container",
-        "rev": "fa6bb0a1159f55d071ba99331355955ae30b3401",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nlewo",
-        "repo": "nix2container",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://flakehub.com/f/cachix/git-hooks.nix/0.1.941"
       }
     },
     "nixpkgs": {
@@ -181,6 +192,22 @@
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-23-11": {
+      "locked": {
+        "lastModified": 1717159533,
+        "narHash": "sha256-oamiKNfr2MS6yH64rUn99mIZjc45nGJlj9eGth/3Xuw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a62e6edd6d5e1fa0329b8653c801147986f8d446",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a62e6edd6d5e1fa0329b8653c801147986f8d446",
         "type": "github"
       }
     },
@@ -227,28 +254,12 @@
         "type": "github"
       }
     },
-    "pre-commit-hooks": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733318908,
-        "narHash": "sha256-SVQVsbafSM1dJ4fpgyBqLZ+Lft+jcQuMtEL3lQWx2Sk=",
-        "owner": "cachix",
-        "repo": "git-hooks.nix",
-        "rev": "6f4e2a2112050951a314d2733a994fbab94864c6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cachix",
-        "repo": "git-hooks.nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
+        "dnix": "dnix",
         "dsync": "dsync",
         "flake-parts": "flake-parts",
         "flint": "flint",
-        "lix": "lix",
         "nixpkgs": "nixpkgs",
         "nq": "nq",
         "systems": "systems",
