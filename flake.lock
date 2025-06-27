@@ -264,7 +264,6 @@
         "nq": "nq",
         "systems": "systems",
         "watt": "watt",
-        "wayhibitor": "wayhibitor",
         "wiremix": "wiremix"
       }
     },
@@ -317,29 +316,6 @@
       "original": {
         "owner": "NotAShelf",
         "repo": "watt",
-        "type": "github"
-      }
-    },
-    "wayhibitor": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1747340589,
-        "narHash": "sha256-ppRqiMzt8MnfUFiRJ9VBSegNLoWbqoZHRmgLIDXEUHU=",
-        "owner": "diniamo",
-        "repo": "wayhibitor",
-        "rev": "f0f8c4ccef53910a07776f210246098c2dbff267",
-        "type": "github"
-      },
-      "original": {
-        "owner": "diniamo",
-        "repo": "wayhibitor",
         "type": "github"
       }
     },

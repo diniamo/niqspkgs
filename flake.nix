@@ -32,7 +32,6 @@
         };
 
         fromInputs = [
-          "wayhibitor"
           "watt"
           "flint"
           "wiremix"
@@ -69,13 +68,6 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         flake-parts.follows = "flake-parts";
-      };
-    };
-    wayhibitor = {
-      url = "github:diniamo/wayhibitor";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
       };
     };
     watt = {
