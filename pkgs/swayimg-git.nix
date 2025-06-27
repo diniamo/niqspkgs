@@ -3,12 +3,12 @@
   fetchFromGitHub,
 }:
 swayimg.overrideAttrs {
-  version = "2024-11-29";
+  version = "4.3-unstable-2025-06-25";
 
   src = fetchFromGitHub {
     owner = "artemsen";
     repo = "swayimg";
-    rev = "e8f421ba55f91d149e9bd46b74e11c3f234610cb";
-    hash = "sha256-SXxLmpGMHViqtZHoqChnmV24kLiGlh3bximZ78BaqoI=";
+    rev = "3a45a409058157701d2586340847779e439c7599";
+    hash = "sha256-0MiIJVX1GKyvoGw1+DGVE1gJq/6sJiA79L16YF4USiQ=";
   };
 }
