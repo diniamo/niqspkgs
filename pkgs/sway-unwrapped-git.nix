@@ -19,5 +19,4 @@
     rev = "3d6b9a28480a398e3af869d4051181f98a042022";
     hash = "sha256-Vq8wb+MqIpevbPwhvdEpwWB3XOth2VCnbEUBgUt5sBQ=";
   };
-  patches = [ ./revert-idle-inhibit-no-invisible.patch ];
 }
