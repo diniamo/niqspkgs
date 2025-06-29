@@ -36,7 +36,6 @@
           "flint"
           "wiremix"
           "dsync"
-          "dnix"
         ];
         inherited = listToAttrs (map (input: {
           name = input;
@@ -55,13 +54,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    dnix = {
-      url = "github:diniamo/dnix/custom";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     nq = {
       url = "github:diniamo/nq";
       inputs = {

@@ -1,0 +1,36 @@
+diff --git a/src/nix/develop.cc b/src/nix/develop.cc
+index 37bce6ca07..64e2128d24 100644
+--- a/src/nix/develop.cc
++++ b/src/nix/develop.cc
+@@ -636,6 +636,7 @@
+         setEnviron();
+         // prevent garbage collection until shell exits
+         setEnv("NIX_GCROOT", gcroot.c_str());
++        setEnv("IN_NIX_SHELL", ignoreEnvironment ? "pure" : "impure");
+ 
+         Path shell = "bash";
+ 
+diff --git a/src/nix/env.cc b/src/nix/env.cc
+index 277bd0fdd4..105d781536 100644
+--- a/src/nix/env.cc
++++ b/src/nix/env.cc
+@@ -104,6 +104,7 @@
+         unixPath.directories.insert(unixPath.directories.begin(), pathAdditions.begin(), pathAdditions.end());
+         auto unixPathString = unixPath.render();
+         setEnvOs(OS_STR("PATH"), unixPathString.c_str());
++        setEnv("IN_NIX_SHELL", ignoreEnvironment ? "pure" : "impure");
+ 
+         Strings args;
+         for (auto & arg : command)
+diff --git a/tests/functional/shell.sh b/tests/functional/shell.sh
+index 51032ff1b7..1364f75725 100755
+--- a/tests/functional/shell.sh
++++ b/tests/functional/shell.sh
+@@ -28,6 +28,7 @@
+ # initialization or whatnot, but this must not leak into the environment of the
+ # command being run.
+ env > "$TEST_ROOT/expected-env"
++echo "IN_NIX_SHELL=impure" >> "$TEST_ROOT/expected-env"
+ nix shell -f shell-hello.nix hello -c env > "$TEST_ROOT/actual-env"
+ # Remove/reset variables we expect to be different.
+ # - PATH is modified by nix shell
