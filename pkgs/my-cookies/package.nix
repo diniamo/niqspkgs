@@ -11,6 +11,7 @@ python3Packages.buildPythonApplication {
   };
   patches = [./librewolf.patch];
 
+  pyproject = true;
   build-system = [python3Packages.setuptools];
   dependencies = with python3Packages; [
     browser-cookie3
