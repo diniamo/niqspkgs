@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, openssl}:
+{ stdenv, fetchFromGitHub, openssl }:
 stdenv.mkDerivation {
   pname = "xdccget";
   version = "0-unstable-9ecc0db";
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     hash = "sha256-Aa5H+rcFFkRB4uw24L591nYyt30ssmjU62/ZdG2PiEI=";
   };
 
-  nativeBuildInputs = [openssl];
+  nativeBuildInputs = [ openssl ];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,3 +1,3 @@
-{bat}: bat.overrideAttrs {
+{ bat }: bat.overrideAttrs {
   postFixup = null;
 }

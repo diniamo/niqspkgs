@@ -2,18 +2,18 @@
   description = "A collection of my self-maintained nix derivations";
 
   nixConfig = {
-    extra-substituters = ["https://niqspkgs.cachix.org"];
-    extra-trusted-public-keys = ["niqspkgs.cachix.org-1:3lcNxXkj8BLrK77NK9ZTjk0fxHuSZrr5sKE6Avjb6PI="];
+    extra-substituters = [ "https://niqspkgs.cachix.org" ];
+    extra-trusted-public-keys = [ "niqspkgs.cachix.org-1:3lcNxXkj8BLrK77NK9ZTjk0fxHuSZrr5sKE6Avjb6PI=" ];
   };
 
   outputs = inputs @ {
     flake-parts,
     systems,
     ...
-  }: flake-parts.lib.mkFlake {inherit inputs;} {
+  }: flake-parts.lib.mkFlake { inherit inputs; } {
     systems = import systems;
 
-    perSystem = {pkgs, lib, inputs', self', ...}: {
+    perSystem = { pkgs, lib, inputs', self', ... }: {
       formatter = pkgs.alejandra;
       
       packages = let

@@ -1,4 +1,4 @@
-{sway-unwrapped, wlroots, fetchFromGitLab, fetchFromGitHub}: (sway-unwrapped.override {
+{ sway-unwrapped, wlroots, fetchFromGitLab, fetchFromGitHub }: (sway-unwrapped.override {
   wlroots = wlroots.overrideAttrs {
     version = "0-unstable-48bd183";
     

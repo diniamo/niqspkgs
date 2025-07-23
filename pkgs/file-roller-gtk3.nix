@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     # nautilus
   ];
 
-  mesonFlags = [(lib.mesonEnable "nautilus-actions" false)];
+  mesonFlags = [ (lib.mesonEnable "nautilus-actions" false) ];
 
   postPatch = ''
     patchShebangs data/set-mime-type-entry.py

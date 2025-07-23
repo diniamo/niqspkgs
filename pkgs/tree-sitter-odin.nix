@@ -1,4 +1,4 @@
-{tree-sitter, fetchFromGitHub}: tree-sitter.buildGrammar {
+{ tree-sitter, fetchFromGitHub }: tree-sitter.buildGrammar {
   language = "tree-sitter-odin";
   version = "0-unstable-d2ca8ef";
   

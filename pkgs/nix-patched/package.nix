@@ -1,4 +1,4 @@
-{nix}: nix.overrideAttrs (prev: {
+{ nix }: nix.overrideAttrs (prev: {
   patches = (prev.patches or []) ++ [
     ./deep-overrides.patch
     ./default-flake.patch

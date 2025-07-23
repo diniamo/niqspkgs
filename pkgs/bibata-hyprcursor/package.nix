@@ -10,7 +10,7 @@
   outlineColor ? "#FFFFFF",
   watchBackgroundColor ? "#000000",
 }:
-assert builtins.elem variant ["modern" "modern-right" "original" "original-right"];
+assert builtins.elem variant [ "modern" "modern-right" "original" "original-right" ];
   stdenvNoCC.mkDerivation (final: {
     pname = "bibata-hyprcursor";
     version = "v2.0.7";
@@ -29,7 +29,7 @@ assert builtins.elem variant ["modern" "modern-right" "original" "original-right
       hyprcursor.out
     ];
 
-    phases = ["unpackPhase" "configurePhase" "buildPhase" "installPhase"];
+    phases = [ "unpackPhase" "configurePhase" "buildPhase" "installPhase" ];
 
     unpackPhase = ''
       runHook preUnpack

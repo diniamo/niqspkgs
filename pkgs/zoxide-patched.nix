@@ -1,3 +1,3 @@
-{zoxide}: zoxide.override {
+{ zoxide }: zoxide.override {
   withFzf = false;
 }
