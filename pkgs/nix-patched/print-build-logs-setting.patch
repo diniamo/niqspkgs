@@ -1,0 +1,104 @@
+diff --git a/src/libutil/configuration.cc b/src/libutil/configuration.cc
+index 0f5a6a432..a8ee6c360 100644
+--- a/src/libutil/configuration.cc
++++ b/src/libutil/configuration.cc
+@@ -303,6 +303,7 @@ template<> void BaseSetting<bool>::convertToArg(Args & args, const std::string &
+     args.addFlag({
+         .longName = name,
+         .aliases = aliases,
++        .shortName = shortName,
+         .description = fmt("Enable the `%s` setting.", name),
+         .category = category,
+         .handler = {[this] { override(true); }},
+diff --git a/src/libutil/include/nix/util/configuration.hh b/src/libutil/include/nix/util/configuration.hh
+index 34cefd73b..b8be5c568 100644
+--- a/src/libutil/include/nix/util/configuration.hh
++++ b/src/libutil/include/nix/util/configuration.hh
+@@ -181,6 +181,10 @@ public:
+     const std::string description;
+     const std::set<std::string> aliases;
+ 
++    /* Short name for the CLI argument corresponding to this
++       setting. */
++    char shortName = 0;
++
+     int created = 123;
+ 
+     bool overridden = false;
+diff --git a/src/libutil/include/nix/util/logging.hh b/src/libutil/include/nix/util/logging.hh
+index 9210229bf..bf9b467b6 100644
+--- a/src/libutil/include/nix/util/logging.hh
++++ b/src/libutil/include/nix/util/logging.hh
+@@ -49,6 +49,14 @@ struct LoggerSettings : Config
+           Whether Nix should print out a stack trace in case of Nix
+           expression evaluation errors.
+         )"};
++
++    Setting<bool> printBuildLogs{
++        this, false, "print-build-logs",
++        R"(
++          Print full build logs on standard error.
++        )"};
++
++    LoggerSettings();
+ };
+ 
+ extern LoggerSettings loggerSettings;
+diff --git a/src/libutil/logging.cc b/src/libutil/logging.cc
+index b26694d2d..7b4a32258 100644
+--- a/src/libutil/logging.cc
++++ b/src/libutil/logging.cc
+@@ -16,6 +16,11 @@ namespace nix {
+ 
+ LoggerSettings loggerSettings;
+ 
++LoggerSettings::LoggerSettings()
++{
++    printBuildLogs.shortName = 'L';
++}
++
+ static GlobalConfig::Register rLoggerSettings(&loggerSettings);
+ 
+ static thread_local ActivityId curActivity = 0;
+diff --git a/src/nix/main.cc b/src/nix/main.cc
+index a2c9dcf68..8a987c83d 100644
+--- a/src/nix/main.cc
++++ b/src/nix/main.cc
+@@ -121,15 +121,6 @@ struct NixArgs : virtual MultiCommand, virtual MixCommonArgs, virtual RootArgs
+             .handler = {[this]() { this->helpRequested = true; }},
+         });
+ 
+-        addFlag({
+-            .longName = "print-build-logs",
+-            .shortName = 'L',
+-            .description = "Print full build logs on standard error.",
+-            .category = loggingCategory,
+-            .handler = {[&]() { logger->setPrintBuildLogs(true); }},
+-            .experimentalFeature = Xp::NixCommand,
+-        });
+-
+         addFlag({
+             .longName = "version",
+             .description = "Show version information.",
+@@ -493,6 +484,8 @@ void mainWrapped(int argc, char * * argv)
+         if (!args.helpRequested && !args.completions) throw;
+     }
+ 
++    logger->setPrintBuildLogs(loggerSettings.printBuildLogs);
++
+     if (args.helpRequested) {
+         std::vector<std::string> subcommand;
+         MultiCommand * command = &args;
+diff --git a/tests/functional/experimental-features.sh b/tests/functional/experimental-features.sh
+index d7216992d..b13baf132 100755
+--- a/tests/functional/experimental-features.sh
++++ b/tests/functional/experimental-features.sh
+@@ -84,7 +84,7 @@ nix --experimental-features '' upgrade-nix --help 1>/dev/null
+ # all care). To deal with fixing later, we simply make them require the
+ # nix-command experimental features --- it so happens that the commands we wish
+ # stabilizing to do not need them anyways.
+-for arg in '--print-build-logs' '--offline' '--refresh'; do
++for arg in '--offline' '--refresh'; do
+     nix --experimental-features 'nix-command' "$arg" --help 1>/dev/null
+     expect 1 nix --experimental-features '' "$arg" --help 1>/dev/null
+ done
