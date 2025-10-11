@@ -19,7 +19,7 @@
   libpng,
   libjpeg_turbo,
   librsvg,
-  netsurf,
+  libnsgif,
   libheif,
   libjxl,
   asciidoc,
@@ -78,7 +78,7 @@ in stdenv.mkDerivation rec {
   ++ optional pngSupport libpng
   ++ optional jpegSupport libjpeg_turbo
   ++ optional svgSupport librsvg
-  ++ optional gifSupport netsurf.libnsgif
+  ++ optional gifSupport libnsgif
   ++ optional heifSupport libheif
   ++ optional jpegxlSupport libjxl;
 
