@@ -1,4 +1,4 @@
-{rustPlatform, fetchFromGitHub, pkg-config, gtk4, gtk4-layer-shell}:
+{ rustPlatform, fetchFromGitHub, pkg-config, gtk4, gtk4-layer-shell }:
 rustPlatform.buildRustPackage {
   pname = "swtchrd";
   version = "0.1.3";

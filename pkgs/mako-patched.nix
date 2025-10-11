@@ -1,4 +1,4 @@
-{mako}: mako.overrideAttrs {
+{ mako }: mako.overrideAttrs {
   # Remove enabling zsh completions, enable fish completions
   mesonFlags = [
     "-Dsd-bus-provider=libsystemd"

@@ -1,4 +1,4 @@
-{direnv, fetchFromGitHub}: direnv.overrideAttrs {
+{ direnv, fetchFromGitHub }: direnv.overrideAttrs {
   version = "2.37.1-unstable-c0ce70d";
 
   src = fetchFromGitHub {
