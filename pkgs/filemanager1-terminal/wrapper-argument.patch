@@ -1,0 +1,195 @@
+diff --git a/include/config.h b/include/config.h
+deleted file mode 100644
+index 06a5f89..0000000
+--- a/include/config.h
++++ /dev/null
+@@ -1,7 +0,0 @@
+-#ifndef CONFIG_H
+-#define CONFIG_H
+-
+-#include <stdbool.h>
+-char *read_config(const char *key, const bool is_path);
+-
+-#endif
+diff --git a/meson.build b/meson.build
+index 146ddb3..0de5d23 100644
+--- a/meson.build
++++ b/meson.build
+@@ -67,7 +67,7 @@ install_subdir(
+ 
+ add_project_arguments('-DHAVE_' + sdbus.name().to_upper() + '=1', language: 'c')
+ # Set source files
+-sources = files(['src/file_manager_dbus.c', 'src/config.c'])
++sources = files(['src/file_manager_dbus.c'])
+ 
+ # Add compile arguments
+ executable('file_manager_dbus', sources,
+@@ -75,4 +75,4 @@ executable('file_manager_dbus', sources,
+   install: true,
+   install_dir: get_option('libexecdir'),
+   include_directories: include_directories('include'),
+-) 
++)
+diff --git a/src/config.c b/src/config.c
+deleted file mode 100644
+index dffe9c9..0000000
+--- a/src/config.c
++++ /dev/null
+@@ -1,115 +0,0 @@
+-#include "config.h"
+-#include <stdbool.h>
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <string.h>
+-#include <unistd.h>
+-#include <wordexp.h>
+-
+-#define CONFIG_FILE_NAME                                                       \
+-  "$HOME/.config/org.freedesktop.FileManager1.common/config"
+-#define INITIAL_BUFFER_SIZE 1024
+-
+-static char *expand_env(const char *input) {
+-  wordexp_t p;
+-  if (wordexp(input, &p, 0) != 0) {
+-    return strdup(input); // Return original if expansion fails
+-  }
+-  char *expanded = strdup(p.we_wordv[0]);
+-  wordfree(&p);
+-  return expanded;
+-}
+-
+-char *read_config(const char *key, const bool is_path) {
+-  char *expanded_cmd = expand_env(CONFIG_FILE_NAME);
+-  char *config_file_path = strdup(expanded_cmd);
+-  free(expanded_cmd);
+-
+-  if (config_file_path == NULL) {
+-    fprintf(stderr, "Memory allocation failed\n");
+-    return NULL;
+-  }
+-
+-  // Open the config file
+-  FILE *config_file = fopen(config_file_path, "r");
+-  if (config_file == NULL) {
+-    fprintf(stderr, "Failed to open config file: %s\n", config_file_path);
+-    free(config_file_path);
+-    return NULL;
+-  }
+-
+-  size_t buffer_size = INITIAL_BUFFER_SIZE;
+-  char *line = malloc(buffer_size);
+-  if (line == NULL) {
+-    fprintf(stderr, "Memory allocation failed\n");
+-    fclose(config_file);
+-    free(config_file_path);
+-    return NULL;
+-  }
+-
+-  char *value = NULL;
+-
+-  // Read the config file line by line
+-  while (fgets(line, buffer_size, config_file) != NULL) {
+-    // Remove the newline character at the end of the line
+-    line[strcspn(line, "\n")] = 0;
+-
+-    // Check if the line was truncated
+-    if (line[strlen(line) - 1] == '\0' && ferror(config_file)) {
+-      // Clear the error state
+-      clearerr(config_file);
+-      // Increase the buffer size
+-      buffer_size *= 2;
+-      char *new_line = realloc(line, buffer_size);
+-      if (new_line == NULL) {
+-        fprintf(stderr, "Memory allocation failed\n");
+-        free(line);
+-        fclose(config_file);
+-        free(config_file_path);
+-        return NULL;
+-      }
+-      line = new_line;
+-      // Seek back to the beginning of the line
+-      fseek(config_file, ftell(config_file) - strlen(line), SEEK_SET);
+-      // Read the line again
+-      if (fgets(line, buffer_size, config_file) == NULL) {
+-        break;
+-      }
+-    }
+-
+-    // Remove the newline character at the end of the line
+-    line[strcspn(line, "\n")] = 0;
+-
+-    // Check if this line contains the key we're looking for
+-    if (strncmp(line, key, strlen(key)) == 0) {
+-      // Extract the value
+-      char *equals_sign = strchr(line, '=');
+-      if (equals_sign != NULL) {
+-        // Allocate memory for the value and copy it
+-        value = malloc(strlen(equals_sign + 1) + 1);
+-        if (value == NULL) {
+-          fprintf(stderr, "Memory allocation failed\n");
+-          free(line);
+-          fclose(config_file);
+-          free(config_file_path);
+-          return NULL;
+-        }
+-        strcpy(value, equals_sign + 1);
+-
+-        if (is_path) {
+-          char *expanded_cmd = expand_env(value);
+-          free(value);
+-          value = strdup(expanded_cmd);
+-          free(expanded_cmd);
+-        }
+-      }
+-      break;
+-    }
+-  }
+-
+-  free(line);
+-  fclose(config_file);
+-  free(config_file_path);
+-
+-  return value ? value : NULL; // Ensure a valid return value
+-}
+diff --git a/src/file_manager_dbus.c b/src/file_manager_dbus.c
+index 6388107..9dd2f15 100644
+--- a/src/file_manager_dbus.c
++++ b/src/file_manager_dbus.c
+@@ -1,4 +1,3 @@
+-#include <config.h>
+ #include <errno.h>
+ #include <file_manager_dbus.h>
+ #include <signal.h>
+@@ -208,17 +207,15 @@ static int handle_bus_message(sd_bus_message *m, void *userdata,
+   return sd_bus_reply_method_return(m, NULL);
+ }
+ 
+-int main(void) {
++int main(int argc, char *argv[]) {
+   signal(SIGTERM, handle_sigterm);
+   signal(SIGINT, handle_sigterm);
+ 
+-  char *cmd = read_config("cmd", true);
+-  if (cmd != NULL) {
+-    printf("cmd: %s\n", cmd);
+-  } else {
+-    printf("Failed to read config\n");
+-    goto clean;
++  if (argc < 2) {
++    fprintf(stderr, "Usage: %s <wrapper path>\n", argv[0]);
++    return 1;
+   }
++  char *cmd = argv[1];
+ 
+   sd_bus *bus = NULL;
+   sd_bus_slot *slot1 = NULL, *slot2 = NULL, *slot3 = NULL, *slot4 = NULL;
+@@ -307,8 +304,6 @@ fail:
+   sd_bus_slot_unref(slot3);
+   sd_bus_slot_unref(slot4);
+   sd_bus_unref(bus);
+-  goto clean;
+-clean:
+-  free(cmd);
++
+   return 0;
+ }
