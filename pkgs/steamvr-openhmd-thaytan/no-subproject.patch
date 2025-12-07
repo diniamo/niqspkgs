@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index 1a95b4b..cd24e2a 100644
+--- a/meson.build
++++ b/meson.build
+@@ -31,8 +31,6 @@ sources = [
+ 
+ includes = include_directories(['./subprojects/openvr'])
+ 
+-openhmd_subproject = subproject('openhmd', default_options: ['default_library=static'])
+-
+ deps = [
+ 	dependency('threads'),
+ 	dependency('openhmd', fallback : ['openhmd', 'openhmd_dep'])
