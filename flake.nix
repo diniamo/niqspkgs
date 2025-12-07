@@ -15,7 +15,7 @@
 
     perSystem = { pkgs, lib, inputs', self', ... }: {
       formatter = pkgs.alejandra;
-      
+
       packages = let
         inherit (lib) packagesFromDirectoryRecursive callPackageWith;
         inherit (builtins) listToAttrs;
